@@ -1,0 +1,51 @@
+{
+  "name": "koa2-blog",
+  "version": "1.0.0",
+  "description": "blog",
+  "main": "main.js",
+  "directories": {
+    "lib": "./src/main.js"
+  },
+  "scripts": {
+    "dev": "supervisor -w src src/main.js",
+    "build": "webpack --progress --hide-modules --config webpack.config.js",
+    "pm2": "pm2 start pm2.conf.json --watch",
+    "auto": "node auto/auto.js",
+    "test": "./node_modules/mocha/bin/mocha --harmony test"
+  },
+  "author": "Jiang Xiao Er",
+  "license": "MIT",
+  "dependencies": {
+    "config-lite": "^2.0.0",
+    "koa": "^2.3.0",
+    "koa-mysql-session": "^0.0.2",
+    "koa-router": "^7.2.1",
+    "koa-session-minimal": "^3.0.4",
+    "koa-static": "^4.0.0",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-minify-webpack-plugin": "^0.3.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.1.2",
+    "clean-webpack-plugin": "^0.1.17",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "koa-body": "^4.1.0",
+    "koa-cors": "^0.0.16",
+    "log4js": "^4.1.1",
+    "mocha": "^4.0.1",
+    "mysql2": "^1.6.5",
+    "path": "^0.12.7",
+    "sequelize": "^5.10.1",
+    "sequelize-auto": "^0.4.29",
+    "webpack": "^3.10.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

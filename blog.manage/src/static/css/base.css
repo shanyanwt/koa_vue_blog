@@ -1,0 +1,377 @@
+@charset "utf-8";
+* {
+	font-family: 微软雅黑;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+	font-style: normal;
+}
+
+body a,
+input,
+button {
+	outline: none;
+}
+
+
+/*img,input{border:none;-moz-border: none;border: 0;-moz-border: 0;}*/
+
+img,
+a,
+a:hover,
+a:active {
+	border: none;
+	outline: none;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+	border: none;
+	outline: none;
+	text-decoration: none;
+}
+
+*:focus {
+	outline: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	input,
+	button,
+	textarea {}
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+}
+
+
+/*input{box-sizing: content-box;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;-ms-box-sizing: content-box;-o-box-sizing: content-box;}
+input[type="text"],input[type="search"],input[type="number"],input[type="button"],input[type="email"],
+input[type="password"]{border: 1px solid #cccccc;color: #666666;font-size: 14px;height: 16px;padding: 5px 8px;line-height: 16px;*line-height: normal;}
+input[type="text"]:focus,input[type="search"]:focus,input[type="number"]:focus,input[type="button"]:focus,input[type="email"]:focus,
+input[type="password"]:focus{border: 1px solid #00a0e9;}*/
+
+img {
+	vertical-align: middle;
+}
+
+a,
+a:hover {
+	text-decoration: none;
+}
+
+ul,
+ol,
+dl,
+dt,
+li {
+	list-style: none;
+}
+
+ul {
+	display: inline-block;
+	height: auto;
+	min-height: 1px;
+}
+
+
+/*让ul的高度自适应*/
+
+table {
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+
+/*
+textarea{resize: none;border: 1px solid #cccccc;}
+textarea:focus{border: 1px solid #00a0e9;}
+input:focus,button:focus,button:hover{border: none;border: 0;}
+input[type="radio"]:focus,input[type="checkbox"]:focus,input[type="radio"]:hover,input[type="checkbox"]:hover{border: none;outline: none;}*/
+
+p {
+	word-break: break-all;
+	text-align: justify;
+}
+
+span,
+em,
+i,
+label {
+	display: inline-block;
+}
+
+select {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	text-indent: 0px !important;
+	outline: 0;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	select {
+		text-indent: 4px !important;
+	}
+}
+
+
+/*文本两端对齐文本效果*/
+
+body {
+	font-size: 100%;
+	font-family: "Microsoft Yahei", "宋体", "arial", "helvetica", "sans-serif" !important;
+	line-height: 1 !important;
+}
+
+body,
+html,
+.cont_wraper {
+	height: 100%;
+}
+
+
+/*文本两端对齐文本效果*/
+
+.justify {
+	text-align: justify;
+}
+
+
+/*a的样式*/
+
+.underline {
+	text-decoration: underline;
+}
+
+.lineThrough {
+	text-decoration: line-through;
+}
+
+
+/*元素的类型*/
+
+.tab_cont>.none,
+.none {
+	display: none;
+}
+
+.tab_cont>.block,
+.block {
+	display: block;
+}
+
+.inlineBlock {
+	display: inline-block;
+}
+
+.inline {
+	display: inline;
+}
+
+.inherit {
+	display: inherit;
+}
+
+.overflowH {
+	overflow: hidden;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+
+/*定位*/
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.fixed {
+	position: fixed;
+}
+
+
+/*浮动*/
+
+.floatR,
+.skd_page_ri {
+	float: right;
+}
+
+.floatN {
+	float: none;
+}
+
+.skd_ul>li,
+.skd_ul li>span,
+.skd_ul li>div,
+.floatL {
+	float: left;
+}
+
+
+.notwrap{
+    word-break:keep-all; 
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/*清除浮动*/
+
+.clearfix {
+	display: inline-block;
+}
+
+.clearfix:after {
+	display: block;
+	height: 0;
+	line-height: 0;
+	content: '.';
+	visibility: hidden;
+	clear: both;
+}
+
+.clear {
+	clear: both;
+}
+
+.radius3,
+.butType>a,
+.marAutoBut>a {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-o-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.percentRadius50 {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.marB60 {
+	margin-bottom: 60px;
+}
+
+.marLe1 {
+	margin-left: 1px !important;
+}
+
+.marB6 {
+	margin-bottom: 6px !important;
+}
+
+.w226-5 {
+	width: 226.5px !important;
+}

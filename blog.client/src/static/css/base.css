@@ -1,0 +1,246 @@
+@charset "utf-8";
+* {
+	font-family: 微软雅黑
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+	font-style: normal;
+}
+
+body a,
+input,
+button {
+	outline: none;
+}
+
+img,
+a,
+a:hover,
+a:active {
+	border: none;
+	outline: none;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+	border: none;
+	outline: none;
+	text-decoration: none;
+	color: #00a1ec
+}
+
+*:focus {
+	outline: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	input,
+	button,
+	textarea {}
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+}
+
+img {
+	vertical-align: middle;
+}
+
+
+/*ul,ol,dl,dt,li{list-style: none;}
+ul{display: inline-block;height: auto;min-height: 1px;}/*让ul的高度自适应*/
+
+table {
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+body {
+	font: 14px "Microsoft YaHei", Helvetica, Arial, Lucida Grande, Tahoma, sans-serif
+}
+
+a {
+	color: #666;
+}
+
+
+/*a:visited {
+	color: #999;
+}*/
+
+.skd-ellipsis {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.skd-ellipsis3 {
+	display: -webkit-box;
+	overflow: hidden;
+	white-space: normal !important;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.content {
+	padding: 0 15% 20px 15%;
+	background: url(../img/postBG.png) repeat top left scroll;
+}
+
+.ba {
+	background: #FFFFFF;
+}
+
+.wid80 {
+	width: 80%;
+}
+
+.font-16 {
+	font-size: 16px;
+}
+
+.f-left {
+	float: left;
+}
+
+.f-right {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.M-top {
+	margin-top: 20px;
+}
+
+.M-bottom {
+	margin-bottom: 20px;
+}
+
+.skd-body {
+	float: left;
+	width: 70%;
+}
+
+.skd-content {
+	background: #FFFFFF;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+.skd-text-center{
+	text-align: center;
+}
+
+.skd-recommend-lsit {
+	float: right;
+	width: 29%;
+	min-height: 400px;
+}
+
+.ql-snow .ql-editor pre.ql-syntax {
+	background-color: #f0f0f0 !important;
+	color: inherit !important;
+}

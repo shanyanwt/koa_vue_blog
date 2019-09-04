@@ -1,0 +1,26 @@
+{
+	"apps": {
+		"name": "node-koa2",
+		"script": "./app.js",
+		"watch_delay": 5000,
+		"watch": [
+			"app.js"
+		],
+		"ignore_watch": [
+			"node_modules",
+			"logs",
+			"out.log"
+		],
+		"instances": 1,
+		"instance_var": "INSTANCE_ID",
+		"increment_var": "PORT",
+		"env": {
+			"PORT": 6000,
+			"NODE_ENV": "production"
+		},
+		"out_file": "./out.log",
+		"error_file": "./out.log",
+		"log_date_format": "YYYY-MM-DD HH:mm:ss",
+		"merge_logs": true
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"pm2": true,
+	"disableClustering": true,
+	"appenders": {
+		"access": {
+			"type": "dateFile",
+			"filename": "/logs/access.log",
+			"pattern": "-yyyy-MM-dd"
+		},
+		"rule-console": {
+			"type": "console"
+		},
+		"rule-error": {
+			"type": "dateFile",
+			"filename": "/logs/error-",
+			"encoding": "utf-8",
+			"maxLogSize": 1000000,
+			"numBackups": 3,
+			"pattern": "yyyy-MM-dd.log",
+			"alwaysIncludePattern": true
+		}
+	},
+	"categories": {
+		"default": {
+			"appenders": [
+				"rule-console",
+				"rule-error"
+			],
+			"level": "debug"
+		},
+		"http": {
+			"appenders": [
+				"access"
+			],
+			"level": "info"
+		}
+	}
+}

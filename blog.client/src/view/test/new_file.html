@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="allmap">
+			<p id="lModelMsg">ddd</p>
+			<p id="lPartMsg">rewr</p>
+			<p id="dManufacturer">rew</p>
+			<button onclick="setFiles()">写入文件</button>
+
+		</div>
+		<script type="text/javascript">
+			function setFiles() {　
+				var fso, f;
+
+				　　
+				fso = new ActiveXObject("Scripting.FileSystemObject");
+
+				　　
+				f = fso.GetFile("D:\Notepad++\aa.text");
+				console.log(f)
+				//				var f1 = fso.createtextfile("D:\Notepad++\aa.text",true); 
+			}
+		</script>
+	</body>
+
+</html>

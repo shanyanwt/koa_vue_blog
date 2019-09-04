@@ -1,0 +1,26 @@
+<svg width="210" height="160" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="212" height="162" id="canvas_background" fill="none"/>
+  <g id="canvasGrid" display="none">
+   <rect id="svg_1" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
+  </g>
+ </g>
+
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_2" d="m155.905357,25.188993l0,-27.098842l26.717169,27.098842l-26.717169,0z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#000000"/>
+  <path transform="rotate(-89.5184097290039 41.21235656738281,10.441372871398928) " id="svg_3" d="m26.298317,25.680937l0,-30.479129l29.828083,30.479129l-29.828083,0z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#000000"/>
+  <rect id="svg_4" height="27.48052" width="104.578642" y="-2.098049" x="52.519848" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#000000"/>
+  <rect stroke="#000000" id="svg_6" height="13.358586" width="155.341263" y="25.382471" x="26.947698" fill-opacity="null" stroke-width="1.5" fill="#000000"/>
+  <rect id="svg_7" height="117.17388" width="156.867965" y="38.741057" x="26.566019" stroke-width="1.5" fill="#007fff"/>
+  <line stroke-dasharray="5,5" stroke-linecap="null" stroke-linejoin="null" id="svg_10" y2="129.805672" x2="170.075402" y1="128.660651" x1="38.779588" stroke-width="1.5" stroke="#000000" fill="none"/>
+  <ellipse stroke="#ffffff" ry="5.836566" rx="5.836566" id="svg_11" cy="10.990324" cx="104.809166" stroke-width="1.5" fill="#ffffff"/>
+  <line stroke="#ffffff" stroke-linecap="null" stroke-linejoin="null" id="svg_13" y2="146.754764" x2="169.693723" y1="146.754764" x1="99.847407" fill-opacity="null" stroke-width="1.5" fill="none"/>
+  <path stroke="null" transform="rotate(90.20243835449219 28.063476562499993,129.24061584472656) " id="svg_14" d="m24.250096,131.347265l3.813382,-4.213294l3.813382,4.213294l-7.626763,0z" stroke-opacity="null" stroke-width="1.5" fill="#ffffff"/>
+  <path stroke="null" transform="rotate(-88.44068145751953 181.49636840820312,128.79415893554688) " id="svg_15" d="m177.682993,130.900806l3.813382,-4.213294l3.813382,4.213294l-7.626764,0z" stroke-opacity="null" stroke-width="1.5" fill="#ffffff"/>
+  <text xml:space="preserve" text-anchor="start" font-family="Oswald, sans-serif" font-size="16" id="svg_16" y="146.945601" x="56.336581" stroke-width="0" fill="#ffffff">top</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Oswald, sans-serif" font-size="16" id="svg_18" y="146.563927" x="86.870491" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#ffffff">.</text>
+  <text stroke="#000000" transform="matrix(3.701486825942993,0,0,3.701486825942993,-237.7308406829834,-168.04092271998525) " xml:space="preserve" text-anchor="start" font-family="Oswald, sans-serif" font-size="16" id="svg_19" y="71.686581" x="85.922595" stroke-width="0" fill="#ffffff">Q</text>
+ </g>
+</svg>
