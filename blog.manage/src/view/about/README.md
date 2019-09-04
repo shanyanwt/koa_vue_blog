@@ -1,11 +1,10 @@
 ## 江小二
 
-<html>
-    <div style="text-align: center;">
-        <!--来自江小二的倔强-->
-        <img style="width:123px;"  src="https://img-blog.csdnimg.cn/20190901094108164.png" />
-    </div>
-</html>
+<!--来自江小二的倔强-->
+<p align="center">
+    <img width="123" src="https://img-blog.csdnimg.cn/20190901094108164.png">
+</p>
+
 
 > 江小二，这是我一贯使用的名字，自从别人叫我小二的时候就喜欢上了这个名字，恰好我的名字里有江字，所幸就叫江小二了。
 

@@ -55,11 +55,11 @@ npm2 -v 3.5.1
 ![image](https://img-blog.csdnimg.cn/20190904101410720.png)
 
 ### 项目Links
-- 客户端
-- 管理端
-- 服务端
+- [客户端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
+- [管理端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.manage)
+- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
 
-### [about](https://github.com/shanyanwt/koa_vue_blog/blog.manage/src/view/about)
+### [about](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.manage/src/view/about)
 如果你有好的意见和建议，请发邮件到：shanyanwt@163.com
 
 愿你保持独立思考、不卑、不亢、不怂努力长成自己喜欢的样子
