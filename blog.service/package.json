@@ -39,6 +39,7 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
+    "jszip": "^3.2.2",
     "koa-body": "^4.1.0",
     "koa-cors": "^0.0.16",
     "log4js": "^4.1.1",
