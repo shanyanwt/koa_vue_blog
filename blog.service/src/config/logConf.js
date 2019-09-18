@@ -19,16 +19,22 @@ log4js.configure(log4js_config);
 const logFile = (log_file) => {
 	return log4js.getLogger(log_file);
 }
+
+
 /* 
 	请求信息头打印
 	使用方法
 	logs.httpHead('c-artice',ctx)
  */
 
-const httpHead = (log_file, head) => {
-	let logs = logFile(log_file)
-	logs.info("httpHeadMethod:", head.method)
-	logs.info("httpHeadUrl:", head.originalUrl)
+const httpHead = () => {
+	let logs = logFile()
+	return async function(ctx, next) {
+		logs.info("httpHeadMethod:", ctx.method)
+		logs.info("httpHeadUrl:", ctx.originalUrl)
+		// logs.info("httpHeadUrl:", ctx)
+		await next()
+	}
 }
 
 

@@ -49,6 +49,9 @@ export default new Router({
 				}, {
 					path: '/popper',
 					component: resolve => require(['../view/test/popper/index.vue'], resolve)
+				}, {
+					path: '/music',
+					component: resolve => require(['../view/music/music.vue'], resolve)
 				},
 
 				{

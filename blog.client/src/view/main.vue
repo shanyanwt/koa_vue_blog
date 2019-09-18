@@ -87,6 +87,9 @@
 					icon: 'ios-paper'
 				}],
 				downMenu: [{
+						text: 'music',
+						url: '/music'
+					}, {
 						text: '时间倒计时',
 						url: '/regular'
 					},

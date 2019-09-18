@@ -85,7 +85,7 @@ axios.interceptors.response.use((res) => {
 	/*setTimeout(function(){
 		document.querySelector('#global-spin').style.display = 'none'
 	},300);*/
-	return res.data
+	return res.data || res
 }, (error) => {
 	console.log('网络异常' + error)
 	//	iview.LoadingBar.error();

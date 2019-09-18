@@ -5,7 +5,7 @@ const utils = require('../utils/utils.js')
 const Admin = require('../models').Admin
 const logs = require('../config/logConf.js')
 const LogFile = logs.logFile(__dirname);
-var time = Date.parse(new Date()) / 1000
+
 
 /**
  *添加用户
@@ -21,10 +21,9 @@ const adminAdd = async ctx => {
 			sex = null,
 			content = null,
 			status = 0,
-			create_time = time,
-			update_time = time
+			create_time = utils.time(),
+			update_time =  utils.time()
 	} = ctx.request.body
-	logs.httpHead('c-admin', ctx)
 	let is_name = await Admin.findOne({
 		where: {
 			name
@@ -70,7 +69,6 @@ const adminAdd = async ctx => {
  *查询用户
  */
 const adminCheckName = async ctx => {
-	logs.httpHead('c-admin-adminCheckName', ctx)
 	await Admin.findOne({
 			where: {
 				name: ctx.params.name
@@ -98,7 +96,6 @@ const adminCheckName = async ctx => {
  *登录
  */
 const adminLogin = async ctx => {
-	logs.httpHead('c-admin-adminLogin', ctx)
 	let body = ctx.request.body
 	await Admin.findOne({
 			where: {
@@ -142,7 +139,6 @@ const adminLogin = async ctx => {
  *查询用户
  */
 const adminSelect = async ctx => {
-	logs.httpHead('c-admin-adminSelect', ctx)
 	//根据主键查询
 	await Admin.findByPk({
 			...ctx.params.id
@@ -180,7 +176,6 @@ const adminSelectList = async ctx => {
 			row_start = 0,
 			row_count = 10
 	} = ctx.request.body
-	logs.httpHead('c-admin-adminSelectList', ctx)
 	if (id || id === 0) {
 		where.id = id
 	}
@@ -245,6 +240,7 @@ const adminSelectList = async ctx => {
  *更新用户
  */
 const adminUpdate = async ctx => {
+	let time = Date.parse(new Date()) /1000
 	let body = ctx.request.body
 	let values = {
 		role_id: body.role_id,
@@ -261,7 +257,6 @@ const adminUpdate = async ctx => {
 	if (body.status || body.status === 0) {
 		values.status = body.status
 	}
-	logs.httpHead('c-admin', ctx)
 	await Admin.update({ ...values
 		}, {
 			where: {
@@ -287,7 +282,6 @@ const adminUpdate = async ctx => {
  *删除用户
  */
 const adminDelete = async ctx => {
-	logs.httpHead('c-admin', ctx)
 	let id = ctx.params.id
 	await Admin.destroy({
 			where: {

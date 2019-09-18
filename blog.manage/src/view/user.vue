@@ -99,8 +99,8 @@
 				<h2>用户名：{{adminDetails.name}}</h2>
 			</div>
 			<div slot="footer" class="modal-foot">
-				<Button type="error" size="large"  @click="remove(dataIdenx,'2')">确认</Button>
-				<Button  size="large"  @click="modal2 = false">取消</Button>
+				<Button type="error" size="large" @click="remove(dataIdenx,'2')">确认</Button>
+				<Button size="large" @click="modal2 = false">取消</Button>
 			</div>
 		</Modal>
 	</div>
@@ -124,6 +124,8 @@
 					isPassword: '',
 				},
 				accDate: [],
+				startTime: 0,
+				endTime: 0,
 				form: {
 					id: '',
 					name: '',
@@ -355,7 +357,6 @@
 
 					}
 				})
-
 			},
 			show() {
 				this.showAdd = !this.showAdd
@@ -391,7 +392,7 @@
 					}).then(res => {
 						if(res.error_code == CONSTS.ERROR_CODE.SUCCESS) {
 							if(res.result_data.is_user) {
-								this.dataList.splice(index, 1); 
+								this.dataList.splice(index, 1);
 								this.notice(1, '删除成功！')
 							} else {
 								this.notice(0, '删除失败！')
@@ -557,19 +558,20 @@
 		float: right;
 		line-height: 34px;
 	}
-	 .vertical-center-modal{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .ivu-modal{
-            top: 0;
-        }
-    }
-    .modal-foot{
-    	text-align: center;
-    	button{
-    		width: 40%;
-    	}
-    }
+	
+	.vertical-center-modal {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.ivu-modal {
+			top: 0;
+		}
+	}
+	
+	.modal-foot {
+		text-align: center;
+		button {
+			width: 40%;
+		}
+	}
 </style>

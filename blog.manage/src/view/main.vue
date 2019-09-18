@@ -77,7 +77,11 @@
 						text: '账号管理',
 						url: 'user',
 						icon: 'ios-personadd'
-					}, {
+					},{
+						text: '文件管理',
+						url: 'file',
+						icon: 'ios-personadd'
+					},  {
 						text: '关于我们',
 						url: 'about',
 						icon: 'ios-navigate'

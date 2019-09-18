@@ -17,9 +17,11 @@
   "license": "MIT",
   "dependencies": {
     "config-lite": "^2.0.0",
+    "http": "^0.0.0",
     "koa": "^2.3.0",
     "koa-mysql-session": "^0.0.2",
     "koa-router": "^7.2.1",
+    "koa-send": "^5.0.0",
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^4.0.0",
     "moment": "^2.18.1",

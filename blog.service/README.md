@@ -4,9 +4,9 @@ node+koa2+sequelize+mysql+pm2 (欢迎star)
 
 - [x]   koa2 作为主要node service 入口
 - [x]   webpack 打包node 环境
-- [x]   pm2  [服务成产环环境机制](http://pm2.keymetrics.io/)
+- [x]   pm2  [服务负载均衡](http://pm2.keymetrics.io/)
 - [x]   mysql  数据库
-- [x]   mysql 强大的事务 [sequelize](https://github.com/demopark/sequelize-docs-Zh-CN)
+- [x]   sequelize 强大的事务 [mysql](https://github.com/demopark/sequelize-docs-Zh-CN)
 - [x]   koa-body，文件上传中间件
 - [x]   koa-cors koa 跨域中间件
 - [x]  log4[ 日志输出](https://www.npmjs.com/package/log4js)

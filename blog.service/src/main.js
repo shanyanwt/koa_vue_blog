@@ -5,6 +5,8 @@ const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
 const config = require('./config/default.js');
 const routers = require('./router.js')
+const logs = require('./config/logConf.js')
+
 const koaStatic = require('koa-static')
 const path = require('path')
 const app = new Koa()
@@ -30,11 +32,12 @@ app.use(koaBody({
 		keepExtensions: true, //  保存图片的扩展名
 	}
 }))
+app.use(cors()) // 跨域插件
 // 配置静态资源加载中间件
 app.use(koaStatic(
 	path.join(config.upload.UPLOAD)
 ))
-app.use(cors()) // 跨域插件
+app.use(logs.httpHead()) //  路由 httpHead
 app.use(routers()) //  路由
 app.listen(config.port)
 console.log(`listening on port ${config.port}`)

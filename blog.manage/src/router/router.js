@@ -38,6 +38,10 @@ export const appRouter = [{
 			path: '/about',
 			name: 'about',
 			component: resolve => require(['../view/about/about.vue'], resolve)
+		},{
+			path: '/file',
+			name: 'file',
+			component: resolve => require(['../view/file.vue'], resolve)
 		}
 	]
 }];

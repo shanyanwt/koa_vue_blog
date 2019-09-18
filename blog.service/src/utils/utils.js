@@ -316,6 +316,10 @@ const objectType = (val, type) => {
 	return settype;
 }
 
+const time = () => {
+	return Date.parse(new Date()) / 1000
+}
+
 /**
  * 分开导出，用哪个取哪个，引用时需要大括号 ，eg:import {md5,uuid} from 'common/utils',md5('333')
  */
@@ -335,5 +339,6 @@ module.exports = {
 	bubbleSort,
 	processKeyAndData,
 	tofixed,
-	objectType
+	objectType,
+	time
 };

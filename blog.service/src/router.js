@@ -1,6 +1,10 @@
-const Cartice = require('./controller/c-artice.js');
-const Cuser = require('./controller/c-user.js');
-const cUpload = require('./controller/c-upload.js');
+const artice = require('./controller/c-artice.js');
+const user = require('./controller/c-user.js');
+const upload = require('./controller/c-upload.js');
+const file = require('./controller/c-file.js');
+const music = require('./controller/c-music.js');
+
+
 const logs = require('./config/logConf.js')
 const LogFile = logs.logFile('router');
 const top = '/article/v1/'
@@ -16,9 +20,11 @@ const top = '/article/v1/'
 	};
   *
   * */
-var controllerList = { ...Cartice,
-	...Cuser,
-	...cUpload
+var controllerList = { ...artice,
+	...user,
+	...upload,
+	...file,
+	...music
 }
 
 function addMapping(router, mapping) {

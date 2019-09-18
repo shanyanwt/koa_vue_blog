@@ -74,6 +74,11 @@
 						url: 'user',
 						iconBg: '#99b19c',
 					}, {
+						text: '文件管理',
+						introduce: '上传文件等资料管理，文件删除、查看、下载',
+						url: 'file',
+						iconBg: '#da9833',
+					}, {
 						text: '关于我们',
 						introduce: '关于无名小子的介绍',
 						url: 'about',

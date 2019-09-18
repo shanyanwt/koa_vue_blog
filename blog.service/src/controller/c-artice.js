@@ -11,7 +11,6 @@ const LogFile = logs.logFile(__dirname);
  */
 const articleAdd = async ctx => {
 	let body = ctx.request.body
-	logs.httpHead('c-article', ctx)
 	let time = Date.parse(new Date()) / 1000
 	await Article.create({
 			...body,
@@ -39,7 +38,6 @@ const articleAdd = async ctx => {
  */
 const articleAddList = async ctx => {
 	let body = ctx.request.body
-	logs.httpHead('c-article', ctx)
 	let time = Date.parse(new Date()) / 1000
 	body.map(item => {
 		item.create_time = time
@@ -67,7 +65,6 @@ const articleAddList = async ctx => {
  *查询文章
  */
 const articleSelect = async ctx => {
-	logs.httpHead('c-article-articleSelect', ctx)
 	await Article.findOne({
 			where: {
 				id: ctx.params.id
@@ -109,7 +106,6 @@ const articleList = async ctx => {
 			row_start = 0,
 			row_count = 10
 	} = ctx.request.body
-	logs.httpHead('c-article-articleList', ctx)
 	if (id || id === 0) {
 		where.id = id
 	}
@@ -184,7 +180,6 @@ const articleList = async ctx => {
  */
 const articleUpdate = async ctx => {
 	let body = ctx.request.body
-	logs.httpHead('c-article', ctx)
 	let time = Date.parse(new Date()) / 1000
 	await Article.update({
 			...body,
@@ -214,7 +209,6 @@ const articleUpdate = async ctx => {
  *删除文章
  */
 const articleDelete = async ctx => {
-	logs.httpHead('c-article', ctx)
 	let id = ctx.params.id
 	await Article.destroy({
 			where: {

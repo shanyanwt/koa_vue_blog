@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "area-data": "^1.0.0",
-    "axios": "^0.17.1",
+    "axios": ">=0.18.1",
     "iview": "^2.8.0",
     "iview-area": "^1.5.16",
     "vue": "^2.5.13",

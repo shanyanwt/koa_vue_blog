@@ -20,8 +20,9 @@
   },
   "devDependencies": {
     "amfe-flexible": "^2.2.1",
+    "aplayer": "^1.10.1",
     "autoprefixer": "^6.7.2",
-    "axios": "^0.17.1",
+    "axios": ">=0.18.1",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-runtime": "^6.22.0",
