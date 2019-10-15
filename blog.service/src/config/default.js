@@ -21,6 +21,8 @@ const devConfig = {
 		FILE: '/file/',
 		MAXFILESIZE: 200 * 1024 * 1024, //上传文件大小
 	},
+	secretKey: 'ffggfhjtwefcv', // jwt key
+	expiresIn: 60 * 60 * 100, //token失效时间
 }
 const prodConfig = {
 	// 启动端口
@@ -38,6 +40,8 @@ const prodConfig = {
 		IMAGE: '/image/',
 		FILE: '/file/',
 		MAXFILESIZE: 200 * 1024 * 1024
-	}
+	},
+	secretKey: 'ffggfhjtwefcv',
+	expiresIn: 60 * 60 * 24,
 }
 module.exports = process.env.BRANCH_ENV == 'progress' ? prodConfig : devConfig

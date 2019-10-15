@@ -14,11 +14,13 @@
 // 登录成功,用户相关信息
 // 用户信息
 const INSTANCE_ID = 'instance_id'
+const ACCESSTOKEN = 'access_token'
 
 // 用户信息，不包括权限数据
 const USERINFO = 'user_info'
 // 应用名称
-const APP_NAME_VALUE = 'WWW'
+const APP_NAME = 'app_name'
+const APP_NAME_VALUE = 'DOS'
 const CONTENT_TYPE = 'Content-Type'
 const CONTENT_TYPE_VALUE = 'application/json;charset=UTF-8'
 
@@ -60,8 +62,10 @@ const ERROR_CODE = {
 }
 
 module.exports = {
+	ACCESSTOKEN,
 	INSTANCE_ID,
 	USERINFO,
+	APP_NAME,
 	APP_NAME_VALUE,
 	CONTENT_TYPE,
 	CONTENT_TYPE_VALUE,

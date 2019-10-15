@@ -80,7 +80,7 @@
 					},{
 						text: '文件管理',
 						url: 'file',
-						icon: 'ios-personadd'
+						icon: 'folder'
 					},  {
 						text: '关于我们',
 						url: 'about',
@@ -123,6 +123,7 @@
 					title: '退出成功'
 				});
 				cacheUtils.localStorage(consts.USERINFO).del(consts.USERINFO);
+				cacheUtils.sessionStorage(consts.ACCESSTOKEN).del(consts.ACCESSTOKEN)
 			},
 		},
 		mounted() {

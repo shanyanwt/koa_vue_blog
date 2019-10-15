@@ -67,7 +67,7 @@ const fileDisplay = (filePath) => {
  */
 const fileCatalogue = async ctx => {
 	fileList = []
-	var body = ctx.request.body
+	var body = ctx.data
 	var paths = body.path || config.upload.UPLOAD
 	var filePath = path.resolve(paths);
 	await fileDisplay(filePath).then(su => {
@@ -103,8 +103,8 @@ const fileCatalogue = async ctx => {
 /**
  * 删除文件
  */
-const fileUnlink = async ctx => {
-	var body = ctx.request.body
+const delFile = async ctx => {
+	var body = ctx.data
 	if (!body.path) {
 		LogFile.error(err)
 		let res = {
@@ -222,7 +222,7 @@ const downloadFile = async ctx => {
 
 module.exports = {
 	['POST file_catalogue']: fileCatalogue,
-	['POST file_unlink']: fileUnlink,
+	['POST del_file']: delFile,
 	['GET download_file']: downloadFile,
 
 };

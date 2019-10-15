@@ -16,7 +16,7 @@
 				</Col>
 			</template>
 		</Row>
-		<a href="https://github.com/shanyanwt/wx_sign" target="_blank">
+		<a href="https://github.com/shanyanwt/koa_vue_blog" target="_blank">
 			数据来源：
 			<Icon type="social-github"></Icon> github
 		</a>
@@ -97,7 +97,17 @@
 				axios({
 					method: 'get',
 					url: api.API.github + 'koa_vue_blog',
-					data: {}
+					data: {},
+					transformRequest: [
+						(data, headers) => {
+							//清除不需要的head
+							delete headers.common.Authorization;
+							delete headers.instance_id;
+							delete headers.app_name;
+							delete headers.access_token;
+							return data;
+						}
+					],
 				}).then(res => {
 					if(res.subscribers_count) {
 						this.areaList[0].number = res.subscribers_count + 100

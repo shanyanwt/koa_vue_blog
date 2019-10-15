@@ -12,7 +12,6 @@ import axios from 'axios'
 import consts from './consts'
 import cacheUtils from './cacheUtils'
 import utils from './utils'
-import userInfo1 from './userInfoUtils';
 
 axios.defaults.timeout = 5000
 axios.defaults.hasGlobalSpin = true

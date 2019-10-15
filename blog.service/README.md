@@ -9,6 +9,7 @@ node+koa2+sequelize+mysql+pm2 (欢迎star)
 - [x]   sequelize 强大的事务 [mysql](https://github.com/demopark/sequelize-docs-Zh-CN)
 - [x]   koa-body，文件上传中间件
 - [x]   koa-cors koa 跨域中间件
+- [x]   validator 参数校验器自动返回  JSON message和key
 - [x]  log4[ 日志输出](https://www.npmjs.com/package/log4js)
   
   ......
@@ -31,7 +32,9 @@ npm2 -v 3.5.1
     ├─config    //配置文件
     ├─controller  //api层
     ├─models     // 实体类
-    └─utils     //工具类
+    ├─test     // 测试类
+    ├─utils     // 工具类
+    └─validator //参数校验器
     
 ```
 ## 部署
@@ -76,7 +79,7 @@ npm2 -v 3.5.1
     	}
     })
 ```
-- [sequelize](https://github.com/demopark/sequelize-docs-Zh-CN) wiki
+- [sequelize](https://github.com/demopark/sequelize-docs-Zh-CN/tree/master) wiki
 
     方法名 | 属性| 返回结果
     ---     |---  |---
@@ -88,6 +91,21 @@ npm2 -v 3.5.1
     findAndCountAll| 分页查询       |return  Object -> count:Number,rows:Array
     update| 更新      |return  1 or 0   Number
     destroy | 删除     | return  1or 0   Number
+    max('age')  | 计算最大     | return Object
+    min('age') | 计算最小     | return  Object
+    sum('age') | 计算总和     | return  Object
+    count | 查询条数     | return  1or 0   Number
+    query | 原始sql查询     | return  Object
+ - sequelize属性方法 wiki     
+    方法名 | 属性| 备注
+        ---     |---  |---
+    attributes:['id'] | 包含条件查询     | 只查询id
+    db.literal('`star_number` +1') | 自定义字符|不会转义，可作为sql执行
+    db.transaction| 事物处理|可对批量操作进行事物处理，失败自行pormise处理或者 throw new Error(), 自行回滚
+
+      
+ps: db是从modes中导出已连接库的sequelize
+ 
   
   
 ## models生成	sequelize-auto 插件
@@ -103,6 +121,101 @@ npm2 -v 3.5.1
 
 ```
    sequelize-auto -h "数据库地址" -d "数据库名" -u "用户名" -x "密码" -p "端口号"  --dialect mysql -o "生成文件的路径"
+```
+
+ 
+  
+## LinValidator 参数校验器
+自定校验传入参数是否正确，错误将会返回错误 JSON message和key
+
+1.userValidator.js
+```
+引入
+const {
+	XValidator,
+	Rule
+} = require('../validator/validator.js');
+
+/* 
+	模拟用户注册规则
+ */
+
+class RegisterValidator extends LinValidator {
+	constructor() {
+		super();
+		//链式校验规则
+		this.name = [
+			new Rule('isNotEmpty', '昵称不可为空'),
+			new Rule('isLength', '昵称长度必须在2~10之间', 2, 10)
+		];
+		this.email = [
+			new Rule('isOptional'),
+			new Rule('isEmail', '电子邮箱不符合规范，请输入正确的邮箱')
+		];
+		this.password = [
+			// 自定义matches 方法
+			new Rule(
+				'matches',
+				'密码长度必须在6~22位之间，包含字符、数字和 _ ',
+				/^[A-Za-z0-9_*&$#@]{6,22}$/
+			)
+		];
+		this.confirm_password = new Rule('isNotEmpty', '确认密码不可为空');
+	}
+	/* 
+		自定义 calidate 校验规则
+		必须以 calidate开头的一个方法， data是传入参数
+		 成功是 返回true
+		 错误 ConfirmPassword 
+	 */
+	validateConfirmPassword(data) {
+		if (!data.body.password || !data.body.confirm_password) {
+			return [false, '两次输入的密码不一致，请重新输入'];
+		}
+		let ok = data.body.password === data.body.confirm_password;
+		if (ok) {
+			return ok;
+		} else {
+			return [false, '两次输入的密码不一致，请重新输入'];
+		}
+	}
+}
+module.exports = {
+	RegisterValidator
+};
+```
+2. user.js
+
+```
+const {
+	RegisterValidator
+} = require('./userValidator.js');
+
+
+const testRegister = async ctx => {
+    //调用 RegisterValidator 
+    // 校验合法继续向下走 ，不可发则抛出异常 throw Error()
+    const v = await new RegisterValidator().validate(ctx);
+    /* v  返回 body, query ，params，header请求参数 
+		 链式取值 可以防止多层对象无结值的错误
+	 */
+	 // post取值
+	var  name =  v.get('body.user.index.items.name')
+	//  get取值
+	var getName = v.get('query.name') 
+	/**.不合法将会返回
+    	{
+    			"error_code": 20001,
+    			"error_message": {
+    				"name": "昵称不可为空",
+    				"password": "密码长度必须在6~22位之间，包含字符、数字和 _ ",
+    				"confirm_password": "确认密码不可为空",
+    				"ConfirmPassword": "两次输入的密码不一致，请重新输入"
+    			}
+    		}
+	*/
+}
+
 ```
 
 ## 生产环境部署 pm2 配置

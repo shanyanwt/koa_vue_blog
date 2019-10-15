@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement:true
 		},
 		user_ip: {
 			type: DataTypes.STRING(20),
@@ -43,6 +43,11 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		status: {
 			type: DataTypes.INTEGER(4),
+			allowNull: true,
+			defaultValue: '0'
+		},
+		star_number: {
+			type: DataTypes.INTEGER(10),
 			allowNull: true,
 			defaultValue: '0'
 		},

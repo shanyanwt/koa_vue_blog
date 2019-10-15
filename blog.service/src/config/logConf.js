@@ -30,15 +30,15 @@ const logFile = (log_file) => {
 const httpHead = () => {
 	let logs = logFile()
 	return async function(ctx, next) {
-		logs.info("httpHeadMethod:", ctx.method)
-		logs.info("httpHeadUrl:", ctx.originalUrl)
-		// logs.info("httpHeadUrl:", ctx)
+		logs.info("method:", ctx.method)
+		logs.info("url:", ctx.originalUrl)
+		logs.info("ip:", ctx.request.ip)
 		await next()
 	}
 }
 
 
 module.exports = {
-	logFile: logFile,
-	httpHead: httpHead
+	logFile,
+	httpHead
 };

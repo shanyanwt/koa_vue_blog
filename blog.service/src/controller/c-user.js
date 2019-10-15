@@ -1,8 +1,15 @@
 const Op = require('sequelize').Op;
 const consts = require('../utils/consts.js');
 const sequelizeUtils = require('../utils/sequelizeUtils.js')
+const scopes = require('../utils/scopes.js')
 const utils = require('../utils/utils.js')
 const Admin = require('../models').Admin
+const {
+	token,
+	auth
+} = require('../utils/token.js')
+const exception = require('../utils/exception.js')
+const extend = require('../utils/extend.js');
 const logs = require('../config/logConf.js')
 const LogFile = logs.logFile(__dirname);
 
@@ -22,20 +29,15 @@ const adminAdd = async ctx => {
 			content = null,
 			status = 0,
 			create_time = utils.time(),
-			update_time =  utils.time()
-	} = ctx.request.body
+			update_time = utils.time()
+	} = ctx.data
 	let is_name = await Admin.findOne({
 		where: {
 			name
 		}
 	})
 	if (is_name) {
-		let res = {
-			error_code: consts.ERROR_CODE.CHECK_ALREADY_EXISTS,
-			error_message: '该用户名一被创建'
-		}
-		ctx.body = res
-		return
+		throw new exception.erroeException(consts.ERROR_CODE.CHECK_ALREADY_EXISTS, '该用户已存在')
 	}
 	await Admin.create({
 			role_id,
@@ -51,18 +53,10 @@ const adminAdd = async ctx => {
 			update_time
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su
-			}
-			ctx.body = res
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -75,20 +69,12 @@ const adminCheckName = async ctx => {
 			}
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: {
-					is_user: su ? 1 : 0
-				}
-			}
-			ctx.body = res
+			ctx.body = extend.success({
+				is_user: su ? 1 : 0
+			})
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 
@@ -96,7 +82,10 @@ const adminCheckName = async ctx => {
  *登录
  */
 const adminLogin = async ctx => {
-	let body = ctx.request.body
+	// let auth =  new auth()
+
+	// console.log(auth)
+	let body = ctx.data
 	await Admin.findOne({
 			where: {
 				name: body.name
@@ -106,33 +95,24 @@ const adminLogin = async ctx => {
 			let res = {}
 			if (su) {
 				if (su.status == 1) {
-					res.error_code = consts.ERROR_CODE.ACCOUNT_CANCELLATION
-					res.error_message = '用户已注销'
-					ctx.body = res
-					return
+					ctx.body = extend.resultData(consts.ERROR_CODE.ACCOUNT_CANCELLATION)
 				}
 				let load_pas = su.password
 				let user_ticket = utils.md5(load_pas + body.timestamp)
 				if (user_ticket == body.user_ticket) {
-					delete su.password
-					res.error_code = consts.ERROR_CODE.SUCCESS
-					res.result_data = su
+					// ctx.append(consts.ACCESSTOKEN,token(su.id))  //可以添加 headers 但前端接收不到 ？？？？
+					su.setDataValue([consts.ACCESSTOKEN], token(su))
+					su.setDataValue('password', null)
+					ctx.body = extend.success(su)
 				} else {
-					res.error_code = consts.ERROR_CODE.USERNAME_OR_PASS_ERRROR
-					res.error_message = '用户名密码错误'
+					ctx.body = extend.resultData(consts.ERROR_CODE.USERNAME_OR_PASS_ERRROR)
 				}
 			} else {
-				res.error_code = consts.ERROR_CODE.USERNAME_OR_PASS_ERRROR
-				res.error_message = '用户名密码错误'
+				ctx.body = extend.resultData(consts.ERROR_CODE.USERNAME_OR_PASS_ERRROR)
 			}
-			ctx.body = res
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -140,23 +120,12 @@ const adminLogin = async ctx => {
  */
 const adminSelect = async ctx => {
 	//根据主键查询
-	await Admin.findByPk({
-			...ctx.params.id
-		})
+	await Admin.findByPk(...ctx.params.id)
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su[0]
-			}
-			ctx.body = res
-
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -175,7 +144,7 @@ const adminSelectList = async ctx => {
 			status,
 			row_start = 0,
 			row_count = 10
-	} = ctx.request.body
+	} = ctx.data
 	if (id || id === 0) {
 		where.id = id
 	}
@@ -209,6 +178,7 @@ const adminSelectList = async ctx => {
 		}
 	}
 	await Admin.findAndCountAll({
+			...scopes.user,
 			where,
 			order: [
 				['create_time', 'DESC']
@@ -218,21 +188,16 @@ const adminSelectList = async ctx => {
 		})
 		.then(su => {
 			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: {
+				...extend.success({
 					items: su.rows
-				},
+				}),
 				total_row: su.count || 0
 			}
 			ctx.body = res
 		})
 		.catch(ex => {
 			LogFile.error(ex)
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 
@@ -240,8 +205,8 @@ const adminSelectList = async ctx => {
  *更新用户
  */
 const adminUpdate = async ctx => {
-	let time = Date.parse(new Date()) /1000
-	let body = ctx.request.body
+	let time = Date.parse(new Date()) / 1000
+	let body = ctx.data
 	let values = {
 		role_id: body.role_id,
 		email: body.email,
@@ -264,18 +229,10 @@ const adminUpdate = async ctx => {
 			}
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				error_message: '更新完成'
-			}
-			ctx.body = res
+			ctx.body = extend.success()
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -298,11 +255,7 @@ const adminDelete = async ctx => {
 			ctx.body = res
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 

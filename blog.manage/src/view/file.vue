@@ -109,7 +109,7 @@
 			remove(row) {
 				axios({
 					method: 'post',
-					url: api.API.file_unlink,
+					url: api.API.del_file,
 					data: {
 						path: row.path,
 						type: row.type,

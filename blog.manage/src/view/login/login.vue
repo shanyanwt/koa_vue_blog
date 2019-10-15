@@ -86,6 +86,7 @@
 						this.$Notice.success({
 							title: '登录成功！',
 						});
+						cacheUtils.sessionStorage(consts.ACCESSTOKEN).set(consts.ACCESSTOKEN, res.result_data[consts.ACCESSTOKEN]);
 						let userInfo = JSON.stringify(res.result_data)
 						cacheUtils.localStorage(consts.USERINFO).set(consts.USERINFO, userInfo)
 						this.$router.push('/home');

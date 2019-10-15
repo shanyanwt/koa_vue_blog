@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('skd_role', {
+	return sequelize.define('skd_star', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -9,28 +9,28 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement:true
 		},
 		article_id: {
-			type: DataTypes.STRING(255),
+			type: DataTypes.INTEGER(11),
 			allowNull: false
 		},
-		content: {
-			type: DataTypes.TEXT,
-			allowNull: true
+		admin_id: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false
 		},
 		status: {
 			type: DataTypes.INTEGER(4),
 			allowNull: true,
-			defaultValue: '0'
+			defaultValue: '1'
 		},
 		create_time: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING(20),
 			allowNull: true
 		},
 		update_time: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING(20),
 			allowNull: true
 		}
 	}, {
-		tableName: 'skd_role',
+		tableName: 'skd_star',
 		timestamps: false
 	});
 };

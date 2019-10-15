@@ -6,18 +6,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement:true
 		},
 		role_id: {
 			type: DataTypes.INTEGER(11),
-			allowNull: true
-		},
-		email: {
-			type: DataTypes.STRING(255),
-			allowNull: true
-		},
-		password: {
-			type: DataTypes.STRING(255),
 			allowNull: true
 		},
 		name: {
@@ -25,6 +17,14 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		},
 		phone: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		email: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		password: {
 			type: DataTypes.STRING(255),
 			allowNull: true
 		},

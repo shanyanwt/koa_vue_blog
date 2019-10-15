@@ -3,6 +3,8 @@ const consts = require('../utils/consts.js');
 const sequelizeUtils = require('../utils/sequelizeUtils.js')
 const utils = require('../utils/utils.js')
 const Article = require('../models').Article
+const exception = require('../utils/exception.js')
+const extend = require('../utils/extend.js');
 const logs = require('../config/logConf.js')
 const LogFile = logs.logFile(__dirname);
 
@@ -10,7 +12,7 @@ const LogFile = logs.logFile(__dirname);
  *添加文章
  */
 const articleAdd = async ctx => {
-	let body = ctx.request.body
+	let body = ctx.data
 	let time = Date.parse(new Date()) / 1000
 	await Article.create({
 			...body,
@@ -18,18 +20,10 @@ const articleAdd = async ctx => {
 			update_time: time,
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su
-			}
-			ctx.body = res
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 
@@ -37,7 +31,7 @@ const articleAdd = async ctx => {
  *批量添加文章
  */
 const articleAddList = async ctx => {
-	let body = ctx.request.body
+	let body = ctx.data
 	let time = Date.parse(new Date()) / 1000
 	body.map(item => {
 		item.create_time = time
@@ -45,19 +39,11 @@ const articleAddList = async ctx => {
 	})
 	await Article.bulkCreate([...body])
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su
-			}
-			ctx.body = res
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
 			// LogFile.info(ex)
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: sequelizeUtils.validation(ex)
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 
@@ -71,19 +57,10 @@ const articleSelect = async ctx => {
 			}
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su
-			}
-			ctx.body = res
-
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: ex
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -105,7 +82,7 @@ const articleList = async ctx => {
 			end_date,
 			row_start = 0,
 			row_count = 10
-	} = ctx.request.body
+	} = ctx.data
 	if (id || id === 0) {
 		where.id = id
 	}
@@ -157,21 +134,16 @@ const articleList = async ctx => {
 		})
 		.then(su => {
 			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: {
+				...extend.success({
 					items: su.rows
-				},
+				}),
 				total_row: su.count || 0
 			}
 			ctx.body = res
 		})
 		.catch(ex => {
 			LogFile.error(ex)
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: ex
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 
@@ -179,7 +151,7 @@ const articleList = async ctx => {
  *更新文章
  */
 const articleUpdate = async ctx => {
-	let body = ctx.request.body
+	let body = ctx.data
 	let time = Date.parse(new Date()) / 1000
 	await Article.update({
 			...body,
@@ -190,19 +162,14 @@ const articleUpdate = async ctx => {
 			}
 		})
 		.then(su => {
-			// throw new Error('就是不想让你添加！！！');
-			let res = {
-				error_code: su[0] ? consts.ERROR_CODE.SUCCESS : consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: su[0] ? '更新完成' : '更新失败'
-			}
-			ctx.body = res
+			// increment findOne返回后可以直接调用
+			
+			var error_code = su[0] ? consts.ERROR_CODE.SUCCESS : consts.ERROR_CODE.INTERNAL_SERVER_ERROR;
+			var error_message = su[0] ? '更新完成' : '更新失败'
+			ctx.body = extend.resultData(error_code, error_message)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: ex
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 /**
@@ -216,18 +183,10 @@ const articleDelete = async ctx => {
 			}
 		})
 		.then(su => {
-			let res = {
-				error_code: consts.ERROR_CODE.SUCCESS,
-				result_data: su
-			}
-			ctx.body = res
+			ctx.body = extend.success(su)
 		})
 		.catch(ex => {
-			let res = {
-				error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
-				error_message: ex
-			}
-			ctx.body = res
+			throw new exception.erroeException(consts.ERROR_CODE.INTERNAL_SERVER_ERROR, sequelizeUtils.validation(ex))
 		})
 }
 

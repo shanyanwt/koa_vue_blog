@@ -3,12 +3,17 @@ const koaBody = require('koa-body')
 const cors = require('koa-cors');
 const session = require('koa-session-minimal');
 const MysqlStore = require('koa-mysql-session');
+const koaStatic = require('koa-static')
+const path = require('path')
 const config = require('./config/default.js');
 const routers = require('./router.js')
 const logs = require('./config/logConf.js')
+const {
+	catchHead,
+	catchError
+} = require('./utils/exception.js')
 
-const koaStatic = require('koa-static')
-const path = require('path')
+const auth = require('./utils/auth.js')
 const app = new Koa()
 
 // session存储配置
@@ -37,7 +42,10 @@ app.use(cors()) // 跨域插件
 app.use(koaStatic(
 	path.join(config.upload.UPLOAD)
 ))
-app.use(logs.httpHead()) //  路由 httpHead
+app.use(catchError()) // 全局异常监听中间件
+app.use(catchHead()) //请求信息中间件
+app.use(auth()) //权限校验中间件
+
 app.use(routers()) //  路由
 app.listen(config.port)
 console.log(`listening on port ${config.port}`)

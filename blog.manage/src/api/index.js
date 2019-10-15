@@ -29,7 +29,7 @@ const API = {
 	admin_login: ARTICLEAPI + API_VERSION + '/admin_login',
 	upload: ARTICLEAPI + API_VERSION + '/upload',
 	file_catalogue: ARTICLEAPI + API_VERSION + '/file_catalogue',
-	file_unlink: ARTICLEAPI + API_VERSION + '/file_unlink',
+	del_file: ARTICLEAPI + API_VERSION + '/del_file',
 	download_file: ARTICLEAPI + API_VERSION + '/download_file',
 	
 	github: 'https://api.github.com/repos/shanyanwt/'

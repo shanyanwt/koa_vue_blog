@@ -4,11 +4,16 @@
  2. fs.mkdir  创建目录 （创建之前先判断是否存在） 
  3. fs.writeFile  写入文件(文件不存在就创建,但不能创建目录) 
  4. fs.appendFile 写入追加文件 
- 5.fs.readFile 读取文件 
- 6.fs.readdir 读取目录 
- 7.fs.rename 重命名 
+ 5. fs.readFile 读取文件 
+ 6. fs.readdir 读取目录 
+ 7. fs.rename 重命名 
  8. fs.rmdir  删除目录 
  9. fs.unlink 删除文件 
+ 10. fs.createReadStream  从文件流中读取数据，读取的文件比较大时建议用流的方式读取，文件比较大会多次读取。  
+ 11. fs.createWriteStream  写入文件流  
+ 12. pipe 管道流  
+ 13. fs.access 判断目录、文件是否存在(读写权限)
+ 14. fs.mkdirFile 循环创建目录
 */
 
 var fs = require('fs');
@@ -40,8 +45,6 @@ const fileUtils = async ctx => {
 					resolve(1)
 				})
 				break;
-
-
 				//3. fs.writeFile  写入文件（会覆盖之前的内容）（文件不存在就创建）  utf8参数可以省略  
 			case 'writeFile':
 				fs.writeFileSync(name, txt, 'utf8', function(error) {
@@ -167,7 +170,7 @@ const fileUtils = async ctx => {
 					resolve(err)
 				});
 				break;
-				//14. fs.mkdirFile 循环穿件目录
+				//14. fs.mkdirFile 循环创建目录
 			case 'mkdirFile':
 				let pathList = name.split('/');
 				let fileDir = ''

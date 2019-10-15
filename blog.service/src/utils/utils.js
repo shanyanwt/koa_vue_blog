@@ -172,6 +172,22 @@ const base64decode = (encodeStr /*, urlsafe*/ , encoding) => {
 	return buf.toString(encoding || 'utf8');
 };
 
+//AES 对称加密算法的一种。
+//创建加密算法
+function aesEncode(data, key) {
+    const cipher = crypto.createCipher('aes192', key);
+    var crypted = cipher.update(data, 'utf8', 'hex');
+    crypted += cipher.final('hex');
+    return crypted;
+}
+//创建解密算法
+function aesDecode(encrypted, key) {
+    const decipher = crypto.createDecipher('aes192', key);
+    var decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+}
+
 /**
  * 对象排序
  * @param {Object} o, 需要排序的对象.
@@ -319,7 +335,83 @@ const objectType = (val, type) => {
 const time = () => {
 	return Date.parse(new Date()) / 1000
 }
+/**
+ * 获取一个实例的所有方法
+ * @param obj 对象实例
+ * @param option 参数
+ *
+ * ```js
+ *     let validateFuncKeys: string[] = getAllMethodNames(this, {
+ *     filter: key =>
+ *   /validate([A-Z])\w+/g.test(key) && typeof this[key] === "function"
+ *  });
+ * ```
+ */
+const getAllMethodNames = (obj, option) => {
+	let methods = new Set();
+	// tslint:disable-next-line:no-conditional-assignment
+	while ((obj = Reflect.getPrototypeOf(obj))) {
+		let keys = Reflect.ownKeys(obj);
+		keys.forEach(k => methods.add(k));
+	}
+	let keys = Array.from(methods.values());
+	return prefixAndFilter(keys, option);
+}
+/**
+ * 获得实例的所有字段名
+ * @param obj 实例
+ * @param option 参数项
+ *
+ * ```js
+ *     let keys = getAllFieldNames(this, {
+ *      filter: key => {
+ *    const value = this[key];
+ *    if (isArray(value)) {
+ *      if (value.length === 0) {
+ *      return false;
+ *    }
+ *    for (const it of value) {
+ *       if (!(it instanceof Rule)) {
+ *         throw new Error("every item must be a instance of Rule");
+ *      }
+ *    }
+ *    return true;
+ *   } else {
+ *    return value instanceof Rule;
+ *    }
+ *   }
+ *  });
+ * ```
+ */
+function getAllFieldNames(obj, option) {
+    let keys = Reflect.ownKeys(obj);
+    return prefixAndFilter(keys, option);
+}
+const prefixAndFilter = (keys, option) => {
+	option &&
+		option.prefix &&
+		(keys = keys.filter(key => key.toString().startsWith(option.prefix)));
+	option && option.filter && (keys = keys.filter(option.filter));
+	return keys;
+}
 
+/* 类型判断 */
+const typeOf = obj => {
+	const toString = Object.prototype.toString;
+	const map = {
+		'[object Boolean]': 'boolean',
+		'[object Number]': 'number',
+		'[object String]': 'string',
+		'[object Function]': 'function',
+		'[object Array]': 'array',
+		'[object Date]': 'date',
+		'[object RegExp]': 'regExp',
+		'[object Undefined]': 'undefined',
+		'[object Null]': 'null',
+		'[object Object]': 'object'
+	};
+	return map[toString.call(obj)];
+}
 /**
  * 分开导出，用哪个取哪个，引用时需要大括号 ，eg:import {md5,uuid} from 'common/utils',md5('333')
  */
@@ -336,9 +428,14 @@ module.exports = {
 	clone,
 	getQueryString,
 	deepCopy,
+	aesEncode,
+	aesDecode,
 	bubbleSort,
 	processKeyAndData,
 	tofixed,
 	objectType,
-	time
+	time,
+	getAllFieldNames,
+	getAllMethodNames,
+	typeOf
 };

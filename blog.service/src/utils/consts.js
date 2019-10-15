@@ -10,7 +10,11 @@
  *        import consts from common/consts.js
  *        consts.ERROR_CODE.SUCCESS
  */
-
+const ACCESSTOKEN = 'access_token'
+const ROUTER  ={
+	GET:[],
+	POST:[],
+}
 const ERROR_CODE = {
 	SUCCESS: 10000, // 成功
 	UNKNOWN_ERROR: 20000, // 未知错误
@@ -24,7 +28,6 @@ const ERROR_CODE = {
 	INTERNAL_SERVER_ERROR: 20008, // 服务器系统异常
 	DATA_FORMAT_ERROR: 20009, // 传入的JSON数据格式错误
 	PARAM_LENGTH_OVER: 20010, // 参数数据超过允许长度
-	CHECK_ALREADY_EXISTS: 20011, // 校验对象已存在
 	CHECK_ALREADY_EXISTS: 20011, // 校验对象已存在
 
 	// 账户API错误代码
@@ -44,8 +47,11 @@ const ERROR_CODE = {
 	NO_OBJECT: 61019, // 对象不存在
 	USERNAME_OR_PASS_ERRROR: 61020, // 用户名或密码错误
 	ACCOUNT_CANCELLATION: 61024, // 账号已注销
+	ACCOUNT_CODE_EXPIRED: 61025, // access_token过期
 }
 
 module.exports = {
-	ERROR_CODE
+	ERROR_CODE,
+	ACCESSTOKEN,
+	ROUTER
 };
