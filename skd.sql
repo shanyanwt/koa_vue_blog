@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80017
 File Encoding         : 65001
 
-Date: 2019-09-04 10:46:30
+Date: 2019-10-16 09:26:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,6 +52,7 @@ CREATE TABLE `skd_article` (
   `classify` varchar(100) DEFAULT NULL COMMENT '文章类型分类： java，js,vue',
   `type` int(4) NOT NULL COMMENT '文章分类，0：首页头部推荐，1：普通文章，2：资讯，3：公告',
   `status` int(4) DEFAULT '0' COMMENT '状态；0：启用，1：禁用',
+  `star_number` int(10) DEFAULT '0' COMMENT '收藏数量',
   `number` int(20) DEFAULT '0' COMMENT '阅读数量',
   `create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
   `update_time` varchar(20) DEFAULT NULL COMMENT '更新时间',
@@ -71,3 +72,17 @@ CREATE TABLE `skd_role` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+-- ----------------------------
+-- Table structure for skd_star
+-- ----------------------------
+DROP TABLE IF EXISTS `skd_star`;
+CREATE TABLE `skd_star` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL COMMENT '文章ID',
+  `admin_id` int(11) NOT NULL COMMENT '用户ID',
+  `status` int(4) DEFAULT '1' COMMENT '该收藏状态1、正常 2、取消',
+  `create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` varchar(20) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='收藏表';
