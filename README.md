@@ -3,7 +3,7 @@
 </p>
 
 # koa+mysql+vue+iview 前后端分离blog项目
-> 基于node koa为服务端使用sequelize 很好的异步处理mysql事物处理，koa-body上传文件、koa-cors api多类型传世跨域， sequelize-auto 可为sequelize生成实体类更高效使用。
+> 基于node koa为服务端使用sequelize 很好的异步处理mysql事物处理，koa-body上传文件、koa-cors api多类型传世跨域， sequelize-auto 可为sequelize生成实体类更高效使用。。validator 参数校验器自动返回 JSON message和key
 vue+iview（SPA）单页面为客户端和服务端
 
 ### 依赖

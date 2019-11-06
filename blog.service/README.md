@@ -78,6 +78,13 @@ npm2 -v 3.5.1
     		timestamps: false //关闭时间戳
     	}
     })
+    //测试连接
+    sequelize.authenticate().then(() => {
+    	// 连接成功
+    }).catch(err => {
+    	 //在这里可以添加邮箱通知
+    });
+    
 ```
 - [sequelize](https://github.com/demopark/sequelize-docs-Zh-CN/tree/master) wiki
 
