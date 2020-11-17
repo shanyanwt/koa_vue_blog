@@ -67,3 +67,4 @@ npm2 -v 3.5.1
 
 愿你保持独立思考、不卑、不亢、不怂努力长成自己喜欢的样子
 ### 我是一只孤独的狼......[欢迎star](https://github.com/shanyanwt/koa_vue_blog)
+[![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=shanyanwt&orgs=d2-projects&show_icons=true&count_private=true)](https://github.com/anuraghazra/github-readme-stats)
