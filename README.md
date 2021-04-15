@@ -11,7 +11,7 @@
 ### 项目Link
 - [客户端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
 - [管理端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.manage)
-- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
+- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.service)
 
 
 ### 依赖

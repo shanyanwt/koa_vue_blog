@@ -19,7 +19,7 @@
 5. 于原项目icon不一致的情况，自行检查
 ### 项目Link
 - [客户端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
-- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
+- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.service)
 
 ### 使用
 ```

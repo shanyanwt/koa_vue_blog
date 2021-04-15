@@ -7,7 +7,7 @@
 vue+iview（SPA）单页面为客户端和服务端
 ### 项目Link
 - [管理端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.manage)
-- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
+- [服务端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.service)
 ### 依赖
 ```
 node -v >10.4.0
