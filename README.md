@@ -11,7 +11,7 @@
 
 ### 依赖
 ```
-node -v 8.4.0
+node -v 10.0.0
 npm -v 5.3.0
 npm2 -v 3.5.1
 ```
@@ -22,7 +22,7 @@ npm2 -v 3.5.1
 .
 ├─blog.client                   //客户端
 ├─blog.manage                   //管理端
-├─blog.service                  //服务端    
+├─blog.service                  //服务端
 └─skd.sql                       //博客表
 ```
 

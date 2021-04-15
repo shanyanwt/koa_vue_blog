@@ -24,7 +24,7 @@ import crypto from 'crypto';
 function getQueryString(name) {
 	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
 	var r = window.location.search.substr(1).match(reg);
-	if(r != null) return unescape(r[2]);
+	if (r != null) return unescape(r[2]);
 	return null;
 }
 /**
@@ -34,7 +34,7 @@ function getQueryString(name) {
  */
 function deepCopy(source) {
 	var result = {};
-	for(var key in source) {
+	for (var key in source) {
 		result[key] = typeof source[key] === 'object' ? deepCopy(source[key]) : source[key];
 	}
 	return result;
@@ -47,12 +47,12 @@ function deepCopy(source) {
  * @return 排序后的数组(JS只能值引用，所以需要用排序后的数组对原数组变量重新赋值，而不能直接通过函数对原数组进行排序)
  */
 function bubbleSort(data, sortField) {
-	if(data == null) {
+	if (data == null) {
 		return null;
 	}
-	for(var i = 0; i < data.length; i++) {
-		for(var j = 0; j < data.length - i - 1; j++) {
-			if(data[j][sortField] - 0 > data[j + 1][sortField] - 0) {
+	for (var i = 0; i < data.length; i++) {
+		for (var j = 0; j < data.length - i - 1; j++) {
+			if (data[j][sortField] - 0 > data[j + 1][sortField] - 0) {
 				var tempObj = data[j + 1];
 				data[j + 1] = data[j];
 				data[j] = tempObj;
@@ -106,7 +106,7 @@ const uuidV4 = () => {
 const hash = (method, s, format) => {
 	var sum = crypto.createHash(method);
 	var isBuffer = Buffer.isBuffer(s);
-	if(!isBuffer && typeof s === 'object') {
+	if (!isBuffer && typeof s === 'object') {
 		s = JSON.stringify(sortObject(s));
 	}
 	sum.update(s, isBuffer ? 'binary' : 'utf8');
@@ -157,13 +157,13 @@ const sha256 = (s, format) => {
  * @return {String} base64编码.
  * @public
  */
-const base64encode = (s /*, urlsafe*/ ) => {
-	if(!Buffer.isBuffer(s)) {
+const base64encode = (s /*, urlsafe*/) => {
+	if (!Buffer.isBuffer(s)) {
 		s = new Buffer(s);
 	}
 	var encode = s.toString('base64');
 	var urlsafe = false;
-	if(urlsafe) {
+	if (urlsafe) {
 		encode = encode.replace(/\+/g, '-').replace(/\//g, '_');
 	}
 	return encode;
@@ -178,13 +178,13 @@ const base64encode = (s /*, urlsafe*/ ) => {
  * @return {String|Buffer}
  * @public
  */
-const base64decode = (encodeStr /*, urlsafe*/ , encoding) => {
+const base64decode = (encodeStr /*, urlsafe*/, encoding) => {
 	var urlsafe = false;
-	if(urlsafe) {
+	if (urlsafe) {
 		encodeStr = encodeStr.replace(/\-/g, '+').replace(/_/g, '/');
 	}
 	var buf = new Buffer(encodeStr, 'base64');
-	if(encoding === 'buffer') {
+	if (encoding === 'buffer') {
 		return buf;
 	}
 	return buf.toString(encoding || 'utf8');
@@ -197,13 +197,13 @@ const base64decode = (encodeStr /*, urlsafe*/ , encoding) => {
  * @public
  */
 const sortObject = o => {
-	if(!o || Array.isArray(o) || typeof o !== 'object') {
+	if (!o || Array.isArray(o) || typeof o !== 'object') {
 		return o;
 	}
 	var keys = Object.keys(o);
 	keys.sort();
 	var values = [];
-	for(var i = 0; i < keys.length; i++) {
+	for (var i = 0; i < keys.length; i++) {
 		var k = keys[i];
 		values.push([k, sortObject(o[k])]);
 	}
@@ -219,7 +219,7 @@ const sortObject = o => {
  */
 const clone = obj => {
 	var o;
-	switch(typeof obj) {
+	switch (typeof obj) {
 		case 'undefined':
 			break;
 		case 'string':
@@ -232,17 +232,17 @@ const clone = obj => {
 			o = obj;
 			break;
 		case 'object':
-			if(obj === null) {
+			if (obj === null) {
 				o = null;
 			} else {
-				if(obj instanceof Array) {
+				if (obj instanceof Array) {
 					o = [];
-					for(var i = 0, len = obj.length; i < len; i++) {
+					for (var i = 0, len = obj.length; i < len; i++) {
 						o.push(clone(obj[i]));
 					}
 				} else {
 					o = {};
-					for(var k in obj) {
+					for (var k in obj) {
 						o[k] = clone(obj[k]);
 					}
 				}
@@ -257,13 +257,13 @@ const clone = obj => {
 
 /***
  * 计算相对位置工具用于定位(像弹出层)
- * 
- * 
+ *
+ *
  */
 const offset = (el, parent) => {
 	var o = {};
 	parent = parent ? parent : el.offsetParent ? el.offsetParent : false;
-	if(!parent) {
+	if (!parent) {
 		o.left = 0;
 		o.top = 0;
 		return o;
@@ -271,8 +271,8 @@ const offset = (el, parent) => {
 	var l = 0,
 		t = 0,
 		temp = el;
-	while(parent != temp) {
-		if(temp.offsetParent != parent) {
+	while (parent != temp) {
+		if (temp.offsetParent != parent) {
 			l += temp.offsetLeft;
 			t += temp.offsetTop;
 		} else {
@@ -296,13 +296,13 @@ const offset = (el, parent) => {
 const processKeyAndData = (data, resultData, flag, filterStr) => {
 	let kyes, reg = flag ? /([A-Z])/g : /_(.)/g,
 		toCase = flag ? ''.toLocaleLowerCase : ''.toLocaleUpperCase;
-	for(let key in resultData) {
-		if(filterStr) {
-			if(filterStr.indexOf(key) == -1) {
+	for (let key in resultData) {
+		if (filterStr) {
+			if (filterStr.indexOf(key) == -1) {
 				continue;
 			}
 		}
-		kyes = key.replace(reg, function() {
+		kyes = key.replace(reg, function () {
 			return flag ? '_' + toCase.call(arguments[1]) : toCase.call(arguments[1]);
 		});
 		data[kyes] = resultData[key];
@@ -310,7 +310,7 @@ const processKeyAndData = (data, resultData, flag, filterStr) => {
 }
 
 /**
- * parseFloat数值转换成2个小数点 
+ * parseFloat数值转换成2个小数点
  * eg: 0.00
  * val 要转换的对象
  * author: wjl
@@ -334,7 +334,7 @@ const markSplit = (val, mark) => {
 /**
  * 分开导出，用哪个取哪个，引用时需要大括号 ，eg:import {md5,uuid} from 'common/utils',md5('333')
  */
-module.exports = {
+export default {
 	offset,
 	query,
 	queryAll,

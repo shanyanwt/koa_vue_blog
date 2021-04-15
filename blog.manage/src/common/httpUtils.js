@@ -5,12 +5,12 @@
  * http请求工具类
  * eg：
  * 		import axios from 'common/httpUtils';
-        axios({
+		axios({
 		  method:'get',
 		  url: 'xxxx/xxxxx',
 		  params: {
-		    id:id,
-		    token:token
+			id:id,
+			token:token
 		  }
 		})
 		.then(response => {
@@ -22,11 +22,11 @@
 		  method:'post',
 		  url: 'xxxx/xxxxx',
 		  data: {
-		  	id:id,
-		    token:token
+				id:id,
+			token:token
 		  }
 		}).then(response => {
-		    sucess(response);
+			sucess(response);
 		}).catch(error => {
 			error(error);
 		});
@@ -43,12 +43,12 @@
 
 		axios.all([getUserAccount(), getUserPermissions()])
 		  .then(axios.spread(function (acct, perms) {
-		    // Both requests are now complete
+			// Both requests are now complete
 		  }));
  *
  */
 
-// import iview from 'iview';
+// import iview from 'view-design';
 /*require('es6-promise').polyfill()*/
 import axios from 'axios'
 import consts from './consts'
@@ -60,7 +60,7 @@ axios.defaults.headers.post[consts.CONTENT_TYPE] = consts.CONTENT_TYPE_VALUE
 
 // POST传参序列化,增加token
 axios.interceptors.request.use((config) => {
-	if(!cacheUtils.localStorage(consts.INSTANCE_ID).get(consts.INSTANCE_ID)) {
+	if (!cacheUtils.localStorage(consts.INSTANCE_ID).get(consts.INSTANCE_ID)) {
 		cacheUtils.localStorage(consts.INSTANCE_ID).set(consts.INSTANCE_ID, utils.uuidV4().replace(new RegExp(/(-)/g), ''))
 	}
 	config.headers[consts.INSTANCE_ID] = cacheUtils.localStorage(consts.INSTANCE_ID).get(consts.INSTANCE_ID)
@@ -81,18 +81,18 @@ axios.interceptors.request.use((config) => {
 	return Promise.reject(error)
 })
 axios.interceptors.response.use((res) => {
-	if(res.headers[consts.ACCESSTOKEN]) {
+	if (res.headers[consts.ACCESSTOKEN]) {
 		let loadToken = cacheUtils.sessionStorage(consts.ACCESSTOKEN).get(consts.ACCESSTOKEN);
-		if(loadToken != res.headers[consts.ACCESSTOKEN]) {
+		if (loadToken != res.headers[consts.ACCESSTOKEN]) {
 			cacheUtils.sessionStorage(consts.ACCESSTOKEN).set(consts.ACCESSTOKEN, res.headers[consts.ACCESSTOKEN]);
 		}
 	}
 	//	console.log('请求结果:' + JSON.stringify(res.data))
 	//	iview.LoadingBar.finish();
-	if(!res.data.result_data) {
+	if (!res.data.result_data) {
 		res.data.result_data = [];
 	}
-	if(res.data.result_data && Object.keys(res.data.result_data).indexOf('items') != -1 && res.data.result_data.items != null) {
+	if (res.data.result_data && Object.keys(res.data.result_data).indexOf('items') != -1 && res.data.result_data.items != null) {
 		res.data.result_data = res.data.result_data['items']
 	}
 	/*setTimeout(function(){

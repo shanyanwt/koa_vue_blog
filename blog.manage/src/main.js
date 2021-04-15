@@ -1,20 +1,14 @@
+
+
 import Vue from 'vue'
-import App from './App'
-import {router} from './router/index';
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
-import 'babel-polyfill'
-import './static/css/base.css'
-
-//import IEcharts from 'vue-echarts-v3';
-
-Vue.use(iView)
-//Vue.use(IEcharts)
+import iView from 'view-design'
+import App from './App.vue'
+import { router } from './router/index';
+import 'view-design/dist/styles/iview.css';
 
 Vue.config.productionTip = false
-
+Vue.use(iView)
 new Vue({
-	el: '#app',
-    router: router,
+    router,
     render: h => h(App)
-})
+}).$mount('#app')

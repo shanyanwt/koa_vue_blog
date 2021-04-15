@@ -14,7 +14,7 @@
 					</AutoComplete>
 				</FormItem>
 				<FormItem label="文章类型">
-					<Tag v-for="item in form.classify" :key="item" :name="item" closable color="blue" @on-close="handleClose">{{ item}}</Tag>
+					<Tag v-for="item in form.classify" :key="item" :name="item" type="border" color="primary" closable @on-close="handleClose">{{ item}}</Tag>
 					<Select filterable class="inputWidth150" @on-change="selectChange">
 						<Option v-for="(option, index) in classifyList" :value="option" :key="index">{{option}}</Option>
 					</Select>
@@ -77,7 +77,7 @@
 		        :on-exceeded-size="handleMaxSize"
 		        multiple
 		        :action="url">
-		        <Icon type="image" size="18"></Icon>
+				<Icon type="md-images" size="18"/>
 		    </Upload>
 	      </span>
 				<span class="ql-formats">
@@ -102,193 +102,262 @@
 </template>
 
 <script>
-	import { quillEditor } from 'vue-quill-editor'
-	import axios from '../../common/httpUtils'
-	import api from '../../api/index'
-	import CONSTS from '../../common/consts'
+import { quillEditor } from "vue-quill-editor";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
+import axios from "../../common/httpUtils";
+import api from "../../api/index";
+import CONSTS from "../../common/consts";
 
-	export default {
-		data() {
-			return {
-				content: "",
-				editorOption: {
-					modules: {
-						toolbar: '#toolbar'
-					},
-					placeholder: '请输入内容...',
-				},
-				classifyList: ["html", "java", "html5", "Git", "svn", "javascript","程序员人生", "php", "css", "VueJS", "python", "node.js", "c++", "c objective-c", "golang", "shell", "swift", "c#", "ruby", "bash", "typescript", "sass asp.net", "less", "lua", "scala", "coffeescript", "actionscript", "erlang", "perl", "rust", "laravel", "spring", "django", "flask", "express", "ruby-on-rails", "yii", "tornado", "koa", "linux", "nginx", "apache", "docker", "ubuntu", "centos", "tomcat", "缓存 负载均衡", "unix", "hadoop", "mysql", "redis", "mongodb", "oracle", "nosql", "memcached", "sqlserver", "sqlite", "postgresql"],
-				classify: '',
-				imgUrl: '',
-				url: api.UPLOAD_API.UPLOAD_AJXA,
-				showContent: false,
-				data2: [],
-				summary: '', //摘要
-				form: {
-					title: '',
-					email: '',
-					classify: []
-				},
-				ruleValidate: {
-					title: [{
-						required: true,
-						message: '请填写标题！',
-						trigger: 'blur'
-					}]
-				}
-			}
-		},
-		methods: {
-			handleSuccess(res, file) {
-				this.$Message.success("file");
-				this.imgUrl = res.realName;
-				var url = api.IMGURL + res.realName;
-				this.editor.focus();
-				this.editor.insertEmbed(this.editor.getSelection().index, 'image', url);
-			},
-			handleFormatError(file) {
-				this.$Notice.warning({
-					title: '文件格式错误',
-					desc: '你的' + file.name + '请你选择 jpg ， png，jpeg'
-				});
-			},
-			handleMaxSize(file) {
-				this.$Notice.warning({
-					title: '文件过大',
-					desc: '文件  ' + file.name + ' 上传文件小于 2M.'
-				});
-			},
-			getContent() {
-				this.showContent = true;
-			},
-			handleSubmit(name) {
-				this.$refs[name].validate((valid) => {
-					if(valid) {
-						this.submitAreicle()
-					} else {}
-				})
-			},
-			handleSearch2(value) {
-				this.data2 = !value || value.indexOf('@') >= 0 ? [] : [
-					value + '@qq.com',
-					value + '@163.com',
-					value + '@126.com',
-					value + '@sina.com',
-					value + '@gemail.com',
-				];
-			},
-			handleClose(event, name) {
-				let index = this.form.classify.indexOf(name);
-				this.form.classify.splice(index, 1);
-			},
-			selectChange(value) {
-				this.form.classify.push(value)
-				this.classify = ''
-			},
-			inputChange() {
-				if(!this.classify)return
-				this.form.classify.push(this.classify)
-				this.classify = ''
-			},
-			submitAreicle() {
-				axios({
-					method: 'post',
-					url: api.ARTICLE_API.article_add,
-					data: {
-						title: this.form.title,
-						type: 1,
-						status: 1,
-						content: this.content,
-						eemail: this.form.email,
-						cover: this.imgUrl,
-						summary: this.summary,
-						classify: this.form.classify.join(',')
-						
-					}
-				}).then(res => {
-					if(res.error_code == CONSTS.ERROR_CODE.SUCCESS) {
-						var url = "article/" + res.result_data.id;
-						this.$router.push(url);
-						this.$Notice.success({
-							title: '添加文章成功',
-							desc: '感谢你的支持'
-						});
-					} else {
-						console.log("服务器异常")
-					}
-				}).catch(err => {
-					console.log("失误：" + err);
-				})
-			}
-		},
-		computed: {
-			editor() {
-				return this.$refs.myTextEditor.quill
-			}
-		},
-		mounted() {
-			var self = this;
-			self.editor.on('editor-change', function(eventName, args) {
-				if(eventName === 'text-change') {
-					self.content = self.editor.container.firstChild.innerHTML
-				} else if(eventName === 'selection-change') {
-					//				  	console.log("cdcdf",args)
-				}
-			});
-		},
-		components: {
-			quillEditor
-		},
-	}
+export default {
+  data() {
+    return {
+      content: "",
+      editorOption: {
+        modules: {
+          toolbar: "#toolbar",
+        },
+        placeholder: "请输入内容...",
+      },
+      classifyList: [
+        "html",
+        "java",
+        "html5",
+        "Git",
+        "svn",
+        "javascript",
+        "程序员人生",
+        "php",
+        "css",
+        "VueJS",
+        "python",
+        "node.js",
+        "c++",
+        "c objective-c",
+        "golang",
+        "shell",
+        "swift",
+        "c#",
+        "ruby",
+        "bash",
+        "typescript",
+        "sass asp.net",
+        "less",
+        "lua",
+        "scala",
+        "coffeescript",
+        "actionscript",
+        "erlang",
+        "perl",
+        "rust",
+        "laravel",
+        "spring",
+        "django",
+        "flask",
+        "express",
+        "ruby-on-rails",
+        "yii",
+        "tornado",
+        "koa",
+        "linux",
+        "nginx",
+        "apache",
+        "docker",
+        "ubuntu",
+        "centos",
+        "tomcat",
+        "缓存 负载均衡",
+        "unix",
+        "hadoop",
+        "mysql",
+        "redis",
+        "mongodb",
+        "oracle",
+        "nosql",
+        "memcached",
+        "sqlserver",
+        "sqlite",
+        "postgresql",
+      ],
+      classify: "",
+      imgUrl: "",
+      url: api.UPLOAD_API.UPLOAD_AJXA,
+      showContent: false,
+      data2: [],
+      summary: "", //摘要
+      form: {
+        title: "",
+        email: "",
+        classify: [],
+      },
+      ruleValidate: {
+        title: [
+          {
+            required: true,
+            message: "请填写标题！",
+            trigger: "blur",
+          },
+        ],
+      },
+    };
+  },
+  methods: {
+    handleSuccess(res, file) {
+      this.$Message.success("file");
+      this.imgUrl = res.realName;
+      var url = api.IMGURL + res.realName;
+      this.editor.focus();
+      this.editor.insertEmbed(this.editor.getSelection().index, "image", url);
+    },
+    handleFormatError(file) {
+      this.$Notice.warning({
+        title: "文件格式错误",
+        desc: "你的" + file.name + "请你选择 jpg ， png，jpeg",
+      });
+    },
+    handleMaxSize(file) {
+      this.$Notice.warning({
+        title: "文件过大",
+        desc: "文件  " + file.name + " 上传文件小于 2M.",
+      });
+    },
+    getContent() {
+      this.showContent = true;
+    },
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.submitAreicle();
+        } else {
+        }
+      });
+    },
+    handleSearch2(value) {
+      this.data2 =
+        !value || value.indexOf("@") >= 0
+          ? []
+          : [
+              value + "@qq.com",
+              value + "@163.com",
+              value + "@126.com",
+              value + "@sina.com",
+              value + "@gemail.com",
+            ];
+    },
+    handleClose(event, name) {
+      let index = this.form.classify.indexOf(name);
+      this.form.classify.splice(index, 1);
+    },
+    selectChange(value) {
+      this.form.classify.push(value);
+      this.classify = "";
+    },
+    inputChange() {
+      if (!this.classify) return;
+      this.form.classify.push(this.classify);
+      this.classify = "";
+    },
+    submitAreicle() {
+      axios({
+        method: "post",
+        url: api.ARTICLE_API.article_add,
+        data: {
+          title: this.form.title,
+          type: 1,
+          status: 1,
+          content: this.content,
+          eemail: this.form.email,
+          cover: this.imgUrl,
+          summary: this.summary,
+          classify: this.form.classify.join(","),
+        },
+      })
+        .then((res) => {
+          if (res.error_code == CONSTS.ERROR_CODE.SUCCESS) {
+            var url = "article/" + res.result_data.id;
+            this.$router.push(url);
+            this.$Notice.success({
+              title: "添加文章成功",
+              desc: "感谢你的支持",
+            });
+          } else {
+            console.log("服务器异常");
+          }
+        })
+        .catch((err) => {
+          console.log("失误：" + err);
+        });
+    },
+  },
+  computed: {
+    editor() {
+      return this.$refs.myTextEditor.quill;
+    },
+  },
+  mounted() {
+    var self = this;
+    self.editor.on("editor-change", function (eventName, args) {
+      if (eventName === "text-change") {
+        self.content = self.editor.container.firstChild.innerHTML;
+      } else if (eventName === "selection-change") {
+        //				  	console.log("cdcdf",args)
+      }
+    });
+  },
+  components: {
+    quillEditor,
+  },
+};
 </script>
 
 <style type="text/css">
-	.posteditContent {
-		padding: 20px;
-		background: #FFFFFF;
-	}
-	
-	.posteditContent .ql-container {
-		height: 500px !important;
-	}
-	
-	.ql-snow .ql-tooltip {
-		left: 0 !important;
-	}
-	
-	.weButton {
-		margin: 20px;
-	}
-	
-	.inputWidth500 {
-		width: 500px;
-	}
-	
-	.showArticle {
-		margin-bottom: 20px;
-		padding: 10px;
-		background: #fff;
-	}
-	
-	.tadRigth {
-		margin-right: 66px;
-	}
-	
-	.w-e-text {
-		padding: 0;
-		overflow-y: auto;
-	}
-	
-	.w-e-text-container {
-		height: 400px !important;
-	}
-	
-	.submit button {
-		width: 20%;
-		margin: 20px;
-	}
-	
-	.inputWidth150 {
-		width: 150px;
-	}
+.posteditContent {
+  padding: 20px;
+  background: #ffffff;
+}
+
+.posteditContent .ql-container {
+  height: 500px !important;
+}
+
+.ql-snow .ql-tooltip {
+  left: 0 !important;
+}
+
+.weButton {
+  margin: 20px;
+}
+
+.inputWidth500 {
+  width: 500px;
+}
+
+.showArticle {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #fff;
+}
+
+.tadRigth {
+  margin-right: 66px;
+}
+
+.w-e-text {
+  padding: 0;
+  overflow-y: auto;
+}
+
+.w-e-text-container {
+  height: 400px !important;
+}
+
+.submit button {
+  width: 20%;
+  margin: 20px;
+}
+
+.inputWidth150 {
+  width: 150px;
+}
 </style>

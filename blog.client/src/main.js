@@ -1,10 +1,11 @@
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
+import iView from 'view-design'
+import 'view-design/dist/styles/iview.css'
 import './static/css/base.css'
-import VueLazyLoad from 'vue-lazyLoad'
+import VueLazyLoad from 'vue-lazyload'
 import { money } from './filter/moneyFilter.js'
 
 //import './components/comjs/amfeFlexible.js'
@@ -14,11 +15,12 @@ import { money } from './filter/moneyFilter.js'
 Vue.use(iView)
 /*自定义全局金额自动分割指令*/
 Vue.directive("money", {
-	inserted: function(el, v) {
+	inserted: function (el, v) {
 		console.log(el)
 		el.innerHTML = money(el.innerHTML)
 	}
 });
+
 
 Vue.use(VueLazyLoad, {
 	preLoad: 1.3,
@@ -30,8 +32,5 @@ Vue.config.productionTip = false
 new Vue({
 	el: '#app',
 	router,
-	template: '<App/>',
-	components: {
-		App
-	}
+	render: h => h(App)
 })

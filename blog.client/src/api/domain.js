@@ -1,3 +1,4 @@
+
 'use strict';
 /*!
  * domain.js v1.0.0
@@ -7,7 +8,7 @@
  */
 //www.shikedian.com
 
-const BASE_URL = (process.env.NODE_ENV === 'production') ? 'http://192.168.2.74:8081':'http://192.168.2.74:8081';
+const BASE_URL = (process.env.NODE_ENV === 'production') ? 'http://192.168.1.181:8081' : 'http://192.168.1.181:8081';
 export const ARTICLEAPI = BASE_URL + '/article/';
 export const UPLOAD = 'http://www.shikedian.com:5555/';
 export const IMGURL = BASE_URL;

@@ -8,7 +8,7 @@ vue+iview（SPA）单页面为客户端和服务端
 
 ### 依赖
 ```
-node -v 8.4.0
+node -v 10.4.0
 npm -v 5.3.0
 npm2 -v 3.5.1
 ```
@@ -24,9 +24,7 @@ npm2 -v 3.5.1
 ```
 
 ### 安装
-
-使用 npm:
-
+使用 npm 或者 yarn
 ```
  git https://github.com/shanyanwt/koa_vue_blog.git
     npm install
@@ -40,9 +38,9 @@ npm2 -v 3.5.1
     blog.service 服务端启动时执行skd.sql
     管理端登录
     name:admin
-    password:admin123
+    password:12345678
     ps:sql
-    INSERT INTO `skd_admin` VALUES (null, null, 'admin', null, 'shanyanwt@163.com', '3aceb9fb5f01c2b83c8c2482cc256f51', null, '0', null, '0', '1567476440', '1567476440', null);
+    INSERT INTO `skd_admin` VALUES (null, null, 'admin', null, 'shanyanwt@163.com', 'da797ae4f8b0c189e521c580a52e3b6c', null, '0', null, '0', '1567476440', '1567476440', null);
 ```
 
 

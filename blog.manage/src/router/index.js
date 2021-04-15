@@ -1,5 +1,6 @@
+
 import Vue from 'vue';
-import iView from 'iview';
+import iView from 'view-design';
 import VueRouter from 'vue-router';
 import { routers, appRouter } from './router';
 import cacheUtils from 'common/cacheUtils'
@@ -15,11 +16,11 @@ export const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
 	let userInfo = cacheUtils.localStorage(consts.USERINFO).get(consts.USERINFO)
-	if(!userInfo && to.name != 'login') { // 判断是否已经登录且前往的是登录页
+	if (!userInfo && to.name != 'login') { // 判断是否已经登录且前往的是登录页
 		next({
 			name: 'login'
 		});
-	} else if(userInfo && to.name == 'index') {
+	} else if (userInfo && to.name == 'index') {
 		next({
 			name: 'home'
 		});
