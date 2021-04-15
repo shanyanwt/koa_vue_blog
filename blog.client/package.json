@@ -1,6 +1,6 @@
 {
-  "name": "test-vue",
-  "version": "0.1.0",
+  "name": "blog.client",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve --open",
