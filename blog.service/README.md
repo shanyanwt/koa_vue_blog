@@ -14,6 +14,9 @@ node+koa2+sequelize+mysql+pm2 (欢迎star)
 
   ......
 
+### 项目Link
+- [客户端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.client)
+- [管理端](https://github.com/shanyanwt/koa_vue_blog/tree/master/blog.manage)
 ### 依赖
 ```
 node -v 10.0.0
