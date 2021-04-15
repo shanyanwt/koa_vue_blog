@@ -1,4 +1,4 @@
-/* 
+/*
 	文件服务
  */
 const fs = require('fs');
@@ -14,24 +14,24 @@ const logs = require('../config/logConf.js')
 const LogFile = logs.logFile(__dirname);
 var zip = new jszip();
 
-/* 
+/*
  根据文件路径读取文件，返回文件列表
  */
 var fileList = []
 const fileDisplay = (filePath) => {
 	return new Promise((resolve, reject) => {
-		fs.readdir(filePath, function(err, files) {
+		fs.readdir(filePath, function (err, files) {
 			if (err) {
 				reject(err)
 			} else if (files.length == 0) {
 				resolve(fileList)
 			} else {
 				//遍历读取到的文件列表
-				files.forEach(function(filename, index) {
+				files.forEach(function (filename, index) {
 					//获取当前文件的绝对路径
 					var filedir = path.join(filePath, filename);
 					//根据文件路径获取文件信息，返回一个fs.Stats对象
-					fs.stat(filedir, function(err, stats) {
+					fs.stat(filedir, function (err, stats) {
 						if (err) {
 							reject(err)
 							return false;
@@ -68,8 +68,19 @@ const fileDisplay = (filePath) => {
 const fileCatalogue = async ctx => {
 	fileList = []
 	var body = ctx.data
-	var paths = body.path || config.upload.UPLOAD
+	const basic = config.upload.UPLOAD
+	var paths = body.path || basic
 	var filePath = path.resolve(paths);
+	const isBasic = await fileUtils({
+		name: basic,
+		type: 'stat',
+	})
+	// 非基本路径创建一个目录
+	if (!isBasic) {
+		ctx.data.path = basic
+		return await mkdirFile(ctx)
+
+	}
 	await fileDisplay(filePath).then(su => {
 		var suList = []
 		su.map(item => {
@@ -97,6 +108,43 @@ const fileCatalogue = async ctx => {
 			error_message: '服务器异常'
 		}
 		ctx.body = res
+	})
+}
+// 创建目录
+const mkdirFile = async ctx => {
+	var body = ctx.data
+	var paths = body.path
+	if (!paths) {
+		LogFile.error('未找到添加路径')
+		let res = {
+			error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
+			error_message: '服务器异常'
+		}
+		ctx.body = res
+		return
+	}
+	await fileUtils({
+		name: paths,
+		type: 'mkdir',
+	}).then(() => {
+		let res = {
+			error_code: consts.ERROR_CODE.SUCCESS,
+			result_data: {
+				items: [],
+				path: paths
+			},
+			message: '创建成功'
+		}
+		LogFile.info(JSON.stringify(res))
+		ctx.body = res
+	}).catch(err => {
+		LogFile.error(err)
+		let res = {
+			error_code: consts.ERROR_CODE.INTERNAL_SERVER_ERROR,
+			error_message: '服务器异常'
+		}
+		ctx.body = res
+		return false;
 	})
 }
 
@@ -143,7 +191,7 @@ const delFile = async ctx => {
  */
 function readDir(obj, nowPath, laodPath) {
 	let files = fs.readdirSync(nowPath); //读取目录中的所有文件及文件夹（同步操作）
-	files.forEach(function(fileName, index) { //遍历检测目录中的文件
+	files.forEach(function (fileName, index) { //遍历检测目录中的文件
 		let fillPath = nowPath + "/" + fileName;
 		let file = fs.statSync(fillPath); //获取一个文件的属性
 		if (file.isDirectory()) { //如果是目录的话，继续查询
@@ -185,7 +233,7 @@ const downloadFile = async ctx => {
 			compressionOptions: { //压缩级别
 				level: 9
 			}
-		}).then(function(content) {
+		}).then(function (content) {
 			fileUtils({
 				type: 'writeFile',
 				name: `${fileTemp}${fileName}.zip`,

@@ -11,9 +11,9 @@ node+koa2+sequelize+mysql+pm2 (欢迎star)
 - [x]   koa-cors koa 跨域中间件
 - [x]   validator 参数校验器自动返回  JSON message和key
 - [x]  log4[ 日志输出](https://www.npmjs.com/package/log4js)
-  
+
   ......
-  
+
 ### 依赖
 ```
 node -v 8.4.0
@@ -35,7 +35,7 @@ npm2 -v 3.5.1
     ├─test     // 测试类
     ├─utils     // 工具类
     └─validator //参数校验器
-    
+
 ```
 ## 部署
 
@@ -52,9 +52,10 @@ npm2 -v 3.5.1
 ```
 
 ## supervisor nodejs 热加载 开发环境使用
+ 如果没有加入的执行 npm install -g supervisor
   supervisor -w src ,添加需要监听的文件，默认是全部但是有时不起作用，加上监听的文件即可
-  
-## 创建数据库连接 
+
+## 创建数据库连接
 > sequelize 连接mysql
 
 ```
@@ -84,7 +85,7 @@ npm2 -v 3.5.1
     }).catch(err => {
     	 //在这里可以添加邮箱通知
     });
-    
+
 ```
 - [sequelize](https://github.com/demopark/sequelize-docs-Zh-CN/tree/master) wiki
 
@@ -103,26 +104,26 @@ npm2 -v 3.5.1
     sum('age') | 计算总和     | return  Object
     count | 查询条数     | return  1or 0   Number
     query | 原始sql查询     | return  Object
- - sequelize属性方法 wiki     
+ - sequelize属性方法 wiki
     方法名 | 属性| 备注
         ---     |---  |---
     attributes:['id'] | 包含条件查询     | 只查询id
     db.literal('`star_number` +1') | 自定义字符|不会转义，可作为sql执行
     db.transaction| 事物处理|可对批量操作进行事物处理，失败自行pormise处理或者 throw new Error(), 自行回滚
 
-      
+
 ps: db是从modes中导出已连接库的sequelize
- 
-  
-  
+
+
+
 ## models生成	sequelize-auto 插件
 
 >  models生成  可在auto 目录中执行密令
 
 ```
-1. 进入 auto文件夹输入 
+1. 进入 auto文件夹输入
     $ node auto.js
-2. 执行完 auto.js 会生成models及表实体类并且导出为index.js 
+2. 执行完 auto.js 会生成models及表实体类并且导出为index.js
 ```
 > auto.js文件所执行命令，也可手动在终端输入此命令
 
@@ -130,8 +131,8 @@ ps: db是从modes中导出已连接库的sequelize
    sequelize-auto -h "数据库地址" -d "数据库名" -u "用户名" -x "密码" -p "端口号"  --dialect mysql -o "生成文件的路径"
 ```
 
- 
-  
+
+
 ## LinValidator 参数校验器
 自定校验传入参数是否正确，错误将会返回错误 JSON message和key
 
@@ -143,7 +144,7 @@ const {
 	Rule
 } = require('../validator/validator.js');
 
-/* 
+/*
 	模拟用户注册规则
  */
 
@@ -169,11 +170,11 @@ class RegisterValidator extends LinValidator {
 		];
 		this.confirm_password = new Rule('isNotEmpty', '确认密码不可为空');
 	}
-	/* 
+	/*
 		自定义 calidate 校验规则
 		必须以 calidate开头的一个方法， data是传入参数
 		 成功是 返回true
-		 错误 ConfirmPassword 
+		 错误 ConfirmPassword
 	 */
 	validateConfirmPassword(data) {
 		if (!data.body.password || !data.body.confirm_password) {
@@ -200,16 +201,16 @@ const {
 
 
 const testRegister = async ctx => {
-    //调用 RegisterValidator 
+    //调用 RegisterValidator
     // 校验合法继续向下走 ，不可发则抛出异常 throw Error()
     const v = await new RegisterValidator().validate(ctx);
-    /* v  返回 body, query ，params，header请求参数 
+    /* v  返回 body, query ，params，header请求参数
 		 链式取值 可以防止多层对象无结值的错误
 	 */
 	 // post取值
 	var  name =  v.get('body.user.index.items.name')
 	//  get取值
-	var getName = v.get('query.name') 
+	var getName = v.get('query.name')
 	/**.不合法将会返回
     	{
     			"error_code": 20001,
@@ -229,7 +230,7 @@ const testRegister = async ctx => {
 > 生产环境 centos 7 以及上述所有依赖
 
 ```
-	全局安装  npm install pm2 -g 
+	全局安装  npm install pm2 -g
 	$ pm2 -v
 	> 3.5.1
     配置 pm2.conf.json
@@ -254,20 +255,20 @@ const testRegister = async ctx => {
 4. pm2 服务部署
      ```
      $ npm run pm2       //启动服务
-     ps: 确保已安装，上述依赖 $ npm install pm2 -g 
+     ps: 确保已安装，上述依赖 $ npm install pm2 -g
     ```
-    
+
     ![image](https://img-blog.csdnimg.cn/20190806111004360.png)
-    
+
     $ pm2 list        //查看已运行服务
     ![image](https://img-blog.csdnimg.cn/2019080611103250.png)
-    
+
    $pm2 logs     //查看服务日志
-   
+
    ![image](https://img-blog.csdnimg.cn/20190806111651791.png)
-   
+
    $ pm2 stop 0  //停止响应的进程
-   
+
    ps: 在此服务已经发布完成，可以根据服务器 ip:8081调用，在次更新只需把打好的app.js上传服务器，重启即可
-   
+
 ### 我是一只孤独的狼......[欢迎star](https://github.com/shanyanwt/koa_vue_blog)

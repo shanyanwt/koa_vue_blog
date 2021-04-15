@@ -10,9 +10,9 @@ const devConfig = {
 	database: {
 		DATABASE: 'skd',
 		USERNAME: 'root',
-		PASSWORD: 'yan123456',
+		PASSWORD: '@Abc@123',
 		PORT: '3306',
-		HOST: '127.0.0.1'
+		HOST: '192.168.1.128'
 	},
 	//上传文件目录，如图片为 UPLOAD + IMAGE
 	upload: {
@@ -31,9 +31,9 @@ const prodConfig = {
 	database: {
 		DATABASE: 'skd',
 		USERNAME: 'root',
-		PASSWORD: 'yan123456',
+		PASSWORD: '@Abc@123',
 		PORT: '3306',
-		HOST: '127.0.0.1'
+		HOST: '192.168.1.128'
 	},
 	upload: {
 		UPLOAD: '/upload',
