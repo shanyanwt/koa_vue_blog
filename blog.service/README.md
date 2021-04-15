@@ -16,7 +16,7 @@ node+koa2+sequelize+mysql+pm2 (欢迎star)
 
 ### 依赖
 ```
-node -v 8.4.0
+node -v 10.0.0
 npm -v 5.3.0
 npm2 -v 3.5.1
 ```
@@ -41,7 +41,7 @@ npm2 -v 3.5.1
 
 ```
     git https://github.com/shanyanwt/koa_vue_blog.git
-    npm install
+    npm install & yarn
     开发环境
     npm run dev
         localhost:8081

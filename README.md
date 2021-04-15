@@ -28,11 +28,11 @@ npm2 -v 3.5.1
 
 ### 安装
 
-使用 npm:
+使用 npm或yarn
 
 ```
  git https://github.com/shanyanwt/koa_vue_blog.git
-    npm install
+    npm install  & yarn
     npm run dev
     npm run build
     npm run pm2 //blog.service  服务运行
@@ -43,9 +43,9 @@ npm2 -v 3.5.1
     blog.service 服务端启动时执行skd.sql
     管理端登录
     name:admin
-    password:admin123
+    password:12345678
     ps:sql
-    INSERT INTO `skd_admin` VALUES (null, null, 'admin', null, 'shanyanwt@163.com', '3aceb9fb5f01c2b83c8c2482cc256f51', null, '0', null, '0', '1567476440', '1567476440', null);
+    INSERT INTO `skd_admin` (`role_id`, `name`, `phone`, `email`, `password`, `qq`, `sex`, `content`, `status`, `create_time`, `update_time`, `last_login_time`) VALUES (NULL, 'admin', NULL, 'shanyanwt@163.com', 'da797ae4f8b0c189e521c580a52e3b6c', NULL, '0', '默认密码：12345678', '0', '1567476440', '1618282320', NULL);
 ```
 
 

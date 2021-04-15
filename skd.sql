@@ -35,7 +35,7 @@ CREATE TABLE `skd_admin` (
   `last_login_time` datetime DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='管理员表';
-  INSERT INTO `skd_admin` VALUES (null, null, 'admin', null, 'shanyanwt@163.com', '3aceb9fb5f01c2b83c8c2482cc256f51', null, '0', null, '0', '1567476440', '1567476440', null);
+INSERT INTO `skd_admin` (`role_id`, `name`, `phone`, `email`, `password`, `qq`, `sex`, `content`, `status`, `create_time`, `update_time`, `last_login_time`) VALUES (NULL, 'admin', NULL, 'shanyanwt@163.com', 'da797ae4f8b0c189e521c580a52e3b6c', NULL, '0', '默认密码：12345678', '0', '1567476440', '1618282320', NULL);
 
 -- ----------------------------
 -- Table structure for skd_article
