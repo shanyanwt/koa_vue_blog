@@ -120,13 +120,12 @@
 			},
 			search(v) {
 				if(v != '') {
-					let va = {
-						q: v
-					}
-					this.$router.push({
+					this.$router.replace({
 						path: '/search',
-						query: va
-					});
+						query: {
+							q: v
+						}
+					}).catch(e => {});
 				}
 			},
 			goArticle(type) {
@@ -163,12 +162,12 @@
 	.set-search {
 		margin-bottom: 20px;
 	}
-	
+
 	.set-search .ivu-input-group-large .ivu-input {
 		font-size: 20px !important;
 		height: 45px !important;
 	}
-	
+
 	.set-search .ivu-input-group-append,
 	.ivu-input-group-prepend {
 		font-size: 20px;
@@ -176,43 +175,43 @@
 		background: #ed3f14;
 		width: 140px;
 	}
-	
+
 	.skd-search .ta {
 		float: left;
 		margin-left: -18px;
 	}
-	
+
 	.skd-search .srecommend {
 		height: 120px;
 		padding: 20px 24px;
 		margin-bottom: 2px;
 	}
-	
+
 	.number p:nth-child(1) {
 		text-align: center;
 		font-size: 30px;
 		color: #00a1ec;
 		line-height: 44px;
 	}
-	
+
 	.skd-search .foot {
 		margin-top: 20px;
 		padding-left: 10px;
 	}
-	
+
 	.skd-search .classify {
 		color: #00a1ec;
 	}
-	
+
 	.skd-search .foot a,
 	span {
 		margin-right: 20px;
 	}
-	
+
 	.skd-search .load {
 		margin-top: 20px;
 	}
-	
+
 	.noArticle {
 		text-align: center;
 		font-size: 40px;
