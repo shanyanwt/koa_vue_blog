@@ -53,7 +53,7 @@
     "require-directory": "^2.1.1",
     "sequelize": "^5.10.1",
     "sequelize-auto": "^0.4.29",
-    "validator": "^11.1.0",
+    "validator": "^13.7.0",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.7.2"
   }
