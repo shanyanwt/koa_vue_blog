@@ -41,7 +41,7 @@
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "jszip": "^3.2.2",
+    "jszip": "^3.7.0",
     "koa-body": "^4.1.0",
     "koa-cors": "^0.0.16",
     "lodash": "^4.17.15",
